@@ -2,7 +2,6 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-image: linear-gradient(45deg, rgb(0, 0, 0), rgb(98, 66, 241));
 }
-
 div {
     background-color: rgba(0, 0, 0, 0.9);
     position: absolute;
@@ -15,27 +14,22 @@ div {
     text-align: center;
 }
 
-input {
-    padding: 15px;
-    border-radius: 10px;
-    outline: none;
-    font-size: 15px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-button {
-    background-color: rgb(98, 66, 241);
+.btn-list {
+    display: block;
+    width: 200px;
+    padding: 30px;
     border: none;
-    padding: 15px 30px;
-    border-radius: 10px;
+    background-color: dodgerblue;
     color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
     font-size: 15px;
-    margin: 0 10px;
+    margin: 0 auto;
+    margin-bottom: 30px;
 }
 
-.btn-ok:hover,
-.btn-cancelar:hover {
+.btn-list:hover {
     background-color: rgb(110, 3, 8);
     cursor: pointer;
 }
