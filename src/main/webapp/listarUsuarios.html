@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Usuários</title>
+    <link rel="stylesheet" href="css/listarUsuarios.css">
+</head>
+<body>
+<header>
+    <h1>Gerenciamento de Usuários</h1>
+</header>
+<main>
+    <div>
+        <label for="filtro">Filtrar por nome de usuário:</label>
+        <input type="text" id="filtro" onkeyup="filtrarUsuarios()" placeholder="Digite o nome do usuário...">
+    </div>
+    <table id="tabelaUsuarios">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Grupo</th>
+            <th>Hab/Des</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Usuário 1</td>
+            <td>usuario1@example.com</td>
+            <td>Ativo</td>
+            <td>Administrador</td>
+            <td>
+                <button onclick="editarUsuario()">Alterar</button>
+                <button onclick="inativarReativarUsuario()">Inativar/Reativar</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Usuário 2</td>
+            <td>usuario2@example.com</td>
+            <td>Inativo</td>
+            <td>Usuário Padrão</td>
+            <td>
+                <button onclick="editarUsuario()">Alterar</button>
+                <button onclick="inativarReativarUsuario()">Inativar/Reativar</button>
+            </td>
+        </tr>
+        <!-- Adicione mais linhas conforme necessário -->
+        </tbody>
+    </table>
+    <div class="separator"></div>
+</main>
+<footer>
+    <p>&copy; 2024 Gerenciamento de Usuários. Todos os direitos reservados.</p>
+</footer>
+
+<!-- Script de Filtragem -->
+<script>
+    function filtrarUsuarios() {
+        var input, filtro, tabela, tr, td, i, txtValue;
+        input = document.getElementById("filtro");
+        filtro = input.value.toUpperCase();
+        tabela = document.getElementById("tabelaUsuarios");
+        tr = tabela.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filtro) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function editarUsuario() {
+        // Implemente a lógica para redirecionar para a página de edição de usuário
+        console.log('Usuário selecionado para edição');
+    }
+
+    function inativarReativarUsuario() {
+        // Implemente a lógica para inativar ou reativar o usuário
+        console.log('Usuário selecionado para inativação/reativação');
+    }
+</script>
+</body>
+</html>
+
+
+
