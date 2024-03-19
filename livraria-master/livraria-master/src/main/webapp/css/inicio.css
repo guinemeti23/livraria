@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div {
+    background-color: rgba(0, 0, 0, 0.6); /* Cor de fundo do div com transparência */
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+h1 {
+    color: #ffffff; /* Cor do texto */
+}
+
+.btn-list {
+    display: block;
+    width: 200px;
+    background-color: #333333; /* Cor de fundo do botão */
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+
+.btn-list:hover {
+    background-color: #555555; /* Cor de fundo do botão ao passar o mouse */
+}
+
+div {
+    background-color: rgba(197, 178, 160, 0.9); /* Cor de fundo do div */
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+h1 {
+    color: #887766; /* Cor do texto */
+}
+
+.btn-list {
+    display: block;
+    width: 200px;
+    background-color: #5e282c; /* Cor de fundo do botão */
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+
+.btn-list:hover {
+    background-color: #887766; /* Cor de fundo do botão ao passar o mouse */
+}

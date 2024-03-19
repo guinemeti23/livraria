@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listagem de Produtos</title>
+<link rel="stylesheet" type="text/css" href="css/listaProduto.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<h1>Listar os produtos da loja</h1>
+<input type="text" id="pesquisarProduto" placeholder="Pesquisar produto...">
+<button id="listarProdutos">Listar Produtos</button>
+<button id="abrirModalCadastro"><i class="fas fa-plus"></i></button>
+<div id="listaProdutos">
+  <!-- Aqui serão listados os produtos -->
+</div>
+
+<!-- Modal de cadastro de produto -->
+<div id="modalCadastroProduto" style="display: none;"></div>
+
+<script>
+document.getElementById("listarProdutos").addEventListener("click", function() {
+  document.getElementById("listaProdutos").innerHTML = `
+    <div class="livro">
+      <p>Código: LIV001</p>
+      <p>Nome: Harry Potter e a Pedra Filosofal</p>
+      <p>Quantidade: 10</p>
+      <p>Valor: R$ 50.00</p>
+      <p>Status: Ativo <a href="#"><i class="fas fa-edit"></i> Alterar</a> <a href="#"><i class="fas fa-ban"></i> Inativar</a> <a href="#"><i class="fas fa-sync-alt"></i> Reativar</a> <a href="#"><i class="fas fa-eye"></i> Visualizar</a></p>
+    </div>
+    <div class="livro">
+      <p>Código: LIV002</p>
+      <p>Nome: Bananas de Pijamas</p>
+      <p>Quantidade: 5</p>
+      <p>Valor: R$ 40.00</p>
+      <p>Status: Ativo <a href="#"><i class="fas fa-edit"></i> Alterar</a> <a href="#"><i class="fas fa-ban"></i> Inativar</a> <a href="#"><i class="fas fa-sync-alt"></i> Reativar</a> <a href="#"><i class="fas fa-eye"></i> Visualizar</a></p>
+    </div>
+    <div class="livro">
+      <p>Código: LIV003</p>
+      <p>Nome: A Menina Que Roubava Livros</p>
+      <p>Quantidade: 8</p>
+      <p>Valor: R$ 35.00</p>
+      <p>Status: Ativo <a href="#"><i class="fas fa-edit"></i> Alterar</a> <a href="#"><i class="fas fa-ban"></i> Inativar</a> <a href="#"><i class="fas fa-sync-alt"></i> Reativar</a> <a href="#"><i class="fas fa-eye"></i> Visualizar</a></p>
+    </div>
+    <div class="livro">
+      <p>Código: LIV004</p>
+      <p>Nome: Eleanor & Park</p>
+      <p>Quantidade: 9</p>
+      <p>Valor: R$ 35.00</p>
+      <p>Status: Ativo <a href="#"><i class="fas fa-edit"></i> Alterar</a> <a href="#"><i class="fas fa-ban"></i> Inativar</a> <a href="#"><i class="fas fa-sync-alt"></i> Reativar</a> <a href="#"><i class="fas fa-eye"></i> Visualizar</a></p>
+    </div>
+    <div class="livro">
+      <p>Código: LIV005</p>
+      <p>Nome: O Menino do Pijama Listrado</p>
+      <p>Quantidade: 6</p>
+      <p>Valor: R$ 35.00</p>
+      <p>Status: Ativo <a href="#"><i class="fas fa-edit"></i> Alterar</a> <a href="#"><i class="fas fa-ban"></i> Inativar</a> <a href="#"><i class="fas fa-sync-alt"></i> Reativar</a> <a href="#"><i class="fas fa-eye"></i> Visualizar</a></p>
+    </div>
+    <div class="livro">
+      <p>Código: LIV006</p>
+      <p>Nome: Pai Rico Pai Pobre</p>
+      <p>Quantidade: 20</p>
+      <p>Valor: R$ 35.00</p>
+      <p>Status: Ativo <a href="#"><i class="fas fa-edit"></i> Alterar</a> <a href="#"><i class="fas fa-ban"></i> Inativar</a> <a href="#"><i class="fas fa-sync-alt"></i> Reativar</a> <a href="#"><i class="fas fa-eye"></i> Visualizar</a></p>
+    </div>
+    <div class="livro">
+      <p>Código: LIV007</p>
+      <p>Nome: A Culpa e Das Estrelas</p>
+      <p>Quantidade: 2</p>
+      <p>Valor: R$ 35.00</p>
+      <p>Status: Ativo <a href="#"><i class="fas fa-edit"></i> Alterar</a> <a href="#"><i class="fas fa-ban"></i> Inativar</a> <a href="#"><i class="fas fa-sync-alt"></i> Reativar</a> <a href="#"><i class="fas fa-eye"></i> Visualizar</a></p>
+    </div>
+    <div class="livro">
+      <p>Código: LIV008</p>
+      <p>Nome: Biblia Sagrada</p>
+      <p>Quantidade: 6</p>
+      <p>Valor: R$ 35.00</p>
+      <p>Status: Ativo <a href="#"><i class="fas fa-edit"></i> Alterar</a> <a href="#"><i class="fas fa-ban"></i> Inativar</a> <a href="#"><i class="fas fa-sync-alt"></i> Reativar</a> <a href="#"><i class="fas fa-eye"></i> Visualizar</a></p>
+    </div>
+    <div class="livro">
+      <p>Código: LIV009</p>
+      <p>Nome: Mentes Extraordinarias</p>
+      <p>Quantidade: 14</p>
+      <p>Valor: R$ 35.00</p>
+      <p>Status: Ativo <a href="#"><i class="fas fa-edit"></i> Alterar</a> <a href="#"><i class="fas fa-ban"></i> Inativar</a> <a href="#"><i class="fas fa-sync-alt"></i> Reativar</a> <a href="#"><i class="fas fa-eye"></i> Visualizar</a></p>
+    </div>
+    <div class="livro">
+      <p>Código: LIV0010</p>
+      <p>Nome: A Garota do Lago</p>
+      <p>Quantidade: 0</p>
+      <p>Valor: R$ 35.00</p>
+      <p>Status: Inativo <a href="#"><i class="fas fa-edit"></i> Alterar</a> <a href="#"><i class="fas fa-ban"></i> Inativar</a> <a href="#"><i class="fas fa-sync-alt"></i> Reativar</a> <a href="#"><i class="fas fa-eye"></i> Visualizar</a></p>
+    </div>
+    <!-- Mais produtos... -->
+  `;
+});
+
+document.getElementById("abrirModalCadastro").addEventListener("click", function() {
+  window.open("cadastroProduto.html", "_blank");
+});
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
