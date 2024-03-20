@@ -16,43 +16,13 @@
         <input type="text" id="filtro" onkeyup="filtrarUsuarios()" placeholder="Digite o nome do usuário...">
     </div>
     <table id="tabelaUsuarios">
-        <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Grupo</th>
-            <th>Hab/Des</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Usuário 1</td>
-            <td>usuario1@example.com</td>
-            <td>Ativo</td>
-            <td>Administrador</td>
-            <td>
-                <button onclick="editarUsuario()">Alterar</button>
-                <button onclick="inativarReativarUsuario()">Inativar/Reativar</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Usuário 2</td>
-            <td>usuario2@example.com</td>
-            <td>Inativo</td>
-            <td>Usuário Padrão</td>
-            <td>
-                <button onclick="editarUsuario()">Alterar</button>
-                <button onclick="inativarReativarUsuario()">Inativar/Reativar</button>
-            </td>
-        </tr>
-        <!-- Adicione mais linhas conforme necessário -->
-        </tbody>
+        <!-- Conteúdo da tabela aqui -->
     </table>
     <div class="separator"></div>
 </main>
 <footer>
     <p>&copy; 2024 Gerenciamento de Usuários. Todos os direitos reservados.</p>
+    <a href="cadastro.html" class="cadastro-button">Cadastro de Usuário</a>
 </footer>
 
 <!-- Script de Filtragem -->
@@ -76,19 +46,7 @@
             }
         }
     }
-
-    function editarUsuario() {
-        // Implemente a lógica para redirecionar para a página de edição de usuário
-        console.log('Usuário selecionado para edição');
-    }
-
-    function inativarReativarUsuario() {
-        // Implemente a lógica para inativar ou reativar o usuário
-        console.log('Usuário selecionado para inativação/reativação');
-    }
 </script>
 </body>
 </html>
-
-
 

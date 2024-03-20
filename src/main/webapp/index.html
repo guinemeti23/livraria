@@ -9,25 +9,25 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-<div>
+<div id="container">
     <h1>Login de usuário</h1>
     <form action="LoginServlet" method="post">
-        <input type="text" name="email" placeholder="Email">
-        <br><br>
-        <input type="password" name="senha" placeholder="Senha">
-        <br><br>
+        <input type="text" name="email" placeholder="Email" style="margin-bottom: 10px;"><br>
+        <input type="password" name="senha" placeholder="Senha" style="margin-bottom: 10px;"><br>
         <button type="submit" class="btn-ok" id="btn-ok">Ok</button>
         <button type="button" class="btn-cancelar">Cancelar</button>
-
     </form>
+    <div id="alert" style="display: none;"></div>
 </div>
 <script>
-    document.getElementById('btn-ok').addEventListener('click', function() {
-        let messageElement = document.getElementById('message');
-        if (messageElement.textContent === "Login successful!") {
-            window.location.href = "inicio.html";
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        if (error === 'invalid') {
+            document.getElementById('alert').style.display = 'block';
+            document.getElementById('alert').textContent = 'Email ou senha inválidos!';
         }
-    });
+    }
 </script>
 </body>
 </html>

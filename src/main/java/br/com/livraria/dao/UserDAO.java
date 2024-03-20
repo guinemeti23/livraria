@@ -9,36 +9,27 @@ import java.sql.*;
 
 public class UserDAO {
     public boolean verifyCredentials(Usuario user) {
-        String SQL = "SELECT * FROM USUARIO WHERE EMAIL = ?";
-
+        String SQL = "SELECT SENHA FROM USUARIO WHERE EMAIL = ?";
         try {
             Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-
-            System.out.println("success in database connection");
-
             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, user.getEmail());
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            System.out.println("success in select username");
-
-            while (resultSet.next()) {
-                String senha = resultSet.getString("senha");
-
-                if (senha.equals(user.getSenha())) {
-                    return true;
-                }
+            if (resultSet.next()) {
+                String senhaArmazenada = resultSet.getString("SENHA");
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                return encoder.matches(user.getSenha(), senhaArmazenada);
             }
 
             connection.close();
-
             return false;
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
             return false;
         }
     }
+
 
 
     public String getUserType(Usuario user) {
@@ -66,35 +57,18 @@ public class UserDAO {
 
     public void cadastrarUsuario(Usuario user, String confirmacaoSenha) {
 
-
         if (!user.getSenha().equals(confirmacaoSenha)) {
             System.out.println("As senhas não coincidem. Tente novamente.");
             return;
         }
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String senhaEncriptada = encoder.encode(user.getSenha());
-
-
-        String checkEmailQuery = "SELECT COUNT(*) FROM USUARIO WHERE EMAIL=?";
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-             PreparedStatement checkEmailStatement = connection.prepareStatement(checkEmailQuery)) {
-
-            checkEmailStatement.setString(1, user.getEmail());
-            ResultSet resultSet = checkEmailStatement.executeQuery();
-
-            if (resultSet.next() && resultSet.getInt(1) > 0) {
-                System.out.println("E-mail já cadastrado. Escolha outro.");
-                return;
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Erro ao verificar e-mail: " + e.getMessage());
+        if (!validarCPF(user.getCpf())) {
+            System.out.println("CPF inválido. Tente novamente.");
             return;
         }
 
-
-
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String senhaEncriptada = encoder.encode(user.getSenha());
 
 
         String SQL = "INSERT INTO USUARIO(EMAIL, SENHA, NOME, CPF, GRUPO, ATIVO) VALUES(?,?,?,?,?,?)";
@@ -117,4 +91,45 @@ public class UserDAO {
         }
     }
 
+    private boolean validarCPF(String cpf) {
+        cpf = cpf.replaceAll("[.-]", ""); // Remove pontos e traços
+        if ((cpf == null) || (cpf.length() != 11) || cpf.matches(cpf.charAt(0) + "{11}")) {
+            return false;
+        }
+
+        int soma = 0;
+        int resto;
+
+        for (int i = 1; i <= 9; i++) {
+            soma += Integer.parseInt(cpf.substring(i - 1, i)) * (11 - i);
+        }
+
+        resto = (soma * 10) % 11;
+
+        if ((resto == 10) || (resto == 11)) {
+            resto = 0;
+        }
+
+        if (resto != Integer.parseInt(cpf.substring(9, 10))) {
+            return false;
+        }
+
+        soma = 0;
+
+        for (int i = 1; i <= 10; i++) {
+            soma += Integer.parseInt(cpf.substring(i - 1, i)) * (12 - i);
+        }
+
+        resto = (soma * 10) % 11;
+
+        if ((resto == 10) || (resto == 11)) {
+            resto = 0;
+        }
+
+        if (resto != Integer.parseInt(cpf.substring(10, 11))) {
+            return false;
+        }
+
+        return true;
+    }
 }

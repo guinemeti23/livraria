@@ -1,4 +1,4 @@
-package br.com.livraria.servlet;
+/*package br.com.livraria.servlet;
 
 import br.com.livraria.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +18,24 @@ public class ListarUsuariosServlet {
 
     @GetMapping("/listar-usuarios")
     public String listarUsuarios(Model model, @RequestParam(required = false) String filtro) {
-        List<Usuario> usuarios;
-
         if (filtro != null && !filtro.isEmpty()) {
+            List<Usuario> usuarios;
+
             usuarios = usuarioService.buscarUsuariosPorNome(filtro);
         }
 
 
-        model.addAttribute("usuarios", usuarios);
+        model.addAttribute("/usuarios", usuario());
 
         return "listar-usuarios";
     }
-}
+
+    private Object usuario() {
+    }
+
+
+    private List<Usuario> buscarUsuariosPorNome(String filtro) {
+        return null;
+    }
+}*/
 

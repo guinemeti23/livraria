@@ -19,21 +19,18 @@ public class CadastroUsuarioServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String nome = req.getParameter("primeiroNome");
-        String cpf = req.getParameter("sobrenome");
-        String grupo = req.getParameter("telefone");
+        String nome = req.getParameter("nome");
+        String cpf = req.getParameter("cpf");
         String email = req.getParameter("email");
         String senha = req.getParameter("senha");
-        boolean ativo = Boolean.parseBoolean(req.getParameter("ativo"));
+        String confirmacaoSenha = req.getParameter("confirmacaoSenha");
+        String grupo = req.getParameter("grupo");
 
-        Usuario user = new Usuario(nome, cpf, email, senha, grupo, ativo);
+        Usuario user = new Usuario(nome, cpf, email, senha, grupo, true);
 
         UserDAO userDAO = new UserDAO();
+        userDAO.cadastrarUsuario(user, confirmacaoSenha);
 
-        userDAO.Cadastro(user);
-
-        req.getRequestDispatcher("/").forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/listarUsuarios.html");
     }
-
 }

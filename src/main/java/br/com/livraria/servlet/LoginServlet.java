@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.UUID;
+
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -34,9 +34,8 @@ public class LoginServlet extends HttpServlet {
             resp.sendRedirect("inicio.html");
         } else {
             req.setAttribute("message", "Invalid credentials!");
-            req.getRequestDispatcher("login.html").forward(req, resp);
+            resp.sendRedirect("index.html?error=invalid");
+
         }
     }
 }
-
-
