@@ -16,7 +16,6 @@
     </dependency>
 
 
-
     <dependency>
       <groupId>commons-validator</groupId>
       <artifactId>commons-validator</artifactId>
@@ -33,9 +32,10 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.0.1</version>
+      <version>3.1.0</version>
       <scope>provided</scope>
     </dependency>
+
 
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -72,6 +72,19 @@
       <artifactId>bootstrap</artifactId>
       <version>5.3.0</version>
     </dependency>
+
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.12.0</version>
+    </dependency>
+
   </dependencies>
   <build>
     <finalName>livraria</finalName>

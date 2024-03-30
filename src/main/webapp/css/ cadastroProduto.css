@@ -2,41 +2,104 @@ body {
     font-family: Arial, sans-serif;
     background-color: #faeee3; /* Cor de fundo do body */
     color: #887766; /* Cor do texto */
-}
-
-button {
-    background-color: #5e282c; /* Cor do botão */
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    margin: 0 10px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #a69482;
-}
-
-#listaProdutos {
-    margin-top: 20px;
-}
-
-#listaProdutos div {
-    background-color: #c5b2a0;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-#listaProdutos p {
     margin: 0;
 }
 
-.separator {
-    border-top: 1px solid #faeee3;
-    margin-top: 20px;
+.titulo {
+    text-align: center;
+    padding-top: 20px; /* Espaço acima do título */
+    margin-bottom: 20px; /* Espaço abaixo do título */
+}
+
+form {
+    width: 500px; /* Largura do formulário */
+    background-color: #fff;
+    padding: 20px;
+    margin: 0 auto; /* Centralizar o formulário */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
     margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="number"],
+.input-group textarea,
+.input-group input[type="file"] {
+    width: calc(100% - 20px); /* Largura do campo de entrada */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.input-group textarea {
+    resize: vertical;
+}
+
+.radio-buttons input[type="radio"] {
+    margin-right: 5px;
+}
+
+.espaco {
+    height: 20px;
+}body {
+    font-family: Arial, sans-serif;
+    background-color: #faeee3; /* Cor de fundo do body */
+    color: #887766; /* Cor do texto */
+    margin: 0;
+}
+
+.titulo {
+    text-align: center;
+    padding-top: 20px; /* Espaço acima do título */
+    margin-bottom: 20px; /* Espaço abaixo do título */
+}
+
+form {
+    width: 500px; /* Largura do formulário */
+    background-color: #fff;
+    padding: 20px;
+    margin: 0 auto; /* Centralizar o formulário */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="number"],
+.input-group textarea,
+.input-group input[type="file"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.input-group textarea {
+    resize: vertical;
+}
+
+.radio-buttons input[type="radio"] {
+    margin-right: 5px;
+}
+
+.espaco {
+    height: 20px;
 }

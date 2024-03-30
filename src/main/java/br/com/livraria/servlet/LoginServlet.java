@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/LoginServlet")
+@WebServlet({"/LoginServlet", "/admin/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
     @Override
@@ -27,15 +27,23 @@ public class LoginServlet extends HttpServlet {
         Usuario user = new Usuario(email, senha);
 
         boolean isValidUser = new UserDAO().verifyCredentials(user);
+        boolean isADM =  new UserDAO().isAdmin(user);
 
         if (isValidUser) {
             req.getSession().setAttribute("loggedUser", email);
-            req.setAttribute("message", "Login successful!");
-            resp.sendRedirect("inicio.html");
+            if (isADM){
+                req.getSession().setAttribute("isAdmin", isADM);
+                System.out.println("vc é administrador"+ isADM);
+                resp.sendRedirect("inicioADM.html");
+            }else{
+                req.setAttribute("message", "Login successful!");
+                resp.sendRedirect("inicio.html");
+            }
+
         } else {
             req.setAttribute("message", "Invalid credentials!");
             resp.sendRedirect("index.html?error=invalid");
-
         }
+
     }
 }

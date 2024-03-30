@@ -6,8 +6,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 import java.sql.*;
+import java.util.List;
 
 public class UserDAO {
+
+
     public boolean verifyCredentials(Usuario user) {
         String SQL = "SELECT SENHA FROM USUARIO WHERE EMAIL = ?";
         try {
@@ -32,25 +35,31 @@ public class UserDAO {
 
 
 
-    public String getUserType(Usuario user) {
+    public boolean isAdmin(Usuario user) {
         String SELECT_SQL = "SELECT GRUPO FROM USUARIO WHERE EMAIL = ? ";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SQL)) {
-
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SQL);
             preparedStatement.setString(1, user.getEmail());
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getString("GRUPO");
+            if (resultSet.next()) {
+                String grupo = resultSet.getString("GRUPO");
+                if (grupo.equalsIgnoreCase("administrador")) {
+                    return true;
+                } else if (grupo.equalsIgnoreCase("estoquista")) {
+                    return false;
                 }
             }
-
-        } catch (Exception e) {
-            System.out.println("Error in getUserType: " + e.getMessage());
+            connection.close();
+            return false;
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
         }
 
-        return null;
+
     }
 
 
@@ -132,4 +141,61 @@ public class UserDAO {
 
         return true;
     }
+
+
+    public void alternarUsuario(Usuario user, String confirmacaoSenha) {
+
+        if (!user.getSenha().equals(confirmacaoSenha)) {
+            System.out.println("As senhas não coincidem. Tente novamente.");
+            return;
+        }
+
+        if (!validarCPF(user.getCpf())) {
+            System.out.println("CPF inválido. Tente novamente.");
+            return;
+        }
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String senhaEncriptada = encoder.encode(user.getSenha());
+
+
+        String SQL = "update usuario set nome=?, cpf=?, senha=?, grupo=?  where email=?";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+
+            preparedStatement.setString(1, user.getNome());
+            preparedStatement.setString(2, user.getCpf());
+            preparedStatement.setString(3, senhaEncriptada);
+            preparedStatement.setString(4, user.getGrupo());
+            preparedStatement.setString(5, user.getEmail());
+            preparedStatement.execute();
+
+            System.out.println("alteraçao realizada com sucesso.");
+
+        } catch (SQLException e) {
+            System.out.println("Erro na alteraçao do usuário: " + e.getMessage());
+        }
+    }
+
+
+    public void  abilitarUsuario(Usuario user) {
+        String SQL = "update usuario set =? where email=?";
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setString(2, user.getEmail());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+
+            }
+
+            connection.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
 }
