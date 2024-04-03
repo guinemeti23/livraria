@@ -12,50 +12,50 @@ import java.util.List;
 
 public class LivroDAO {
 
-        public void cadastrarLivro(Livro livro) {
-            String SQL = "INSERT INTO livros(nome, qtd, descricao, avaliacao, preco) VALUES(?,?,?,?,?)";
+    public void cadastrarLivro(Livro livro) {
+        String SQL = "INSERT INTO livros(nome, qtd, descricao, avaliacao, preco) VALUES(?,?,?,?,?)";
 
-            try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-                 PreparedStatement preparedStatement = connection.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-                preparedStatement.setString(1, livro.getNome());
-                preparedStatement.setInt(2, livro.getQuantidade());
-                preparedStatement.setString(3, livro.getDescricao());
-                preparedStatement.setDouble(4, livro.getAvaliacao());
-                preparedStatement.setDouble(5, livro.getPreco());
-                preparedStatement.executeUpdate();
+            preparedStatement.setString(1, livro.getNome());
+            preparedStatement.setInt(2, livro.getQuantidade());
+            preparedStatement.setString(3, livro.getDescricao());
+            preparedStatement.setDouble(4, livro.getAvaliacao());
+            preparedStatement.setDouble(5, livro.getPreco());
+            preparedStatement.executeUpdate();
 
-                int idLivro;
-                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        idLivro = generatedKeys.getInt(1);
-                    } else {
-                        throw new SQLException("Falha ao obter o ID do livro recém-inserido.");
-                    }
+            int idLivro;
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    idLivro = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Falha ao obter o ID do livro recém-inserido.");
                 }
-
-                for (String imagem : livro.getImagens()) {
-                    cadastrarImagemLivro(connection, idLivro, imagem);
-                }
-
-                System.out.println("Cadastro realizado com sucesso.");
-
-            } catch (SQLException e) {
-                System.out.println("Erro no cadastro do livro: " + e.getMessage());
             }
-        }
 
-        private void cadastrarImagemLivro(Connection connection, int idLivro, String imagem) {
-            String SQL = "INSERT INTO livro_imagens(livro_id, imagem) VALUES (?, ?)";
-
-            try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
-                preparedStatement.setInt(1, idLivro);
-                preparedStatement.setString(2, imagem);
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                System.out.println("Erro no cadastro da imagem do livro: " + e.getMessage());
+            for (String imagem : livro.getImagens()) {
+                cadastrarImagemLivro(connection, idLivro, imagem);
             }
+
+            System.out.println("Cadastro realizado com sucesso.");
+
+        } catch (SQLException e) {
+            System.out.println("Erro no cadastro do livro: " + e.getMessage());
         }
+    }
+
+    private void cadastrarImagemLivro(Connection connection, int idLivro, String imagem) {
+        String SQL = "INSERT INTO livro_imagens(livro_id, imagem) VALUES (?, ?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+            preparedStatement.setInt(1, idLivro);
+            preparedStatement.setString(2, imagem);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erro no cadastro da imagem do livro: " + e.getMessage());
+        }
+    }
 
     public void listarProdutos() {
         String SQL = "SELECT codigo, nome, qtd, preco, status FROM livros";

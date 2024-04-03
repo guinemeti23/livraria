@@ -25,49 +25,71 @@ import static org.apache.commons.fileupload.servlet.ServletFileUpload.isMultipar
 public class CadastroLivroServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("cadastroProduto.html").forward(req, resp);
+        req.getRequestDispatcher("/cadastroProduto.html").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String nome = req.getParameter("nome");
-        double preco = Double.parseDouble(req.getParameter("valor"));
-        int quantidade = Integer.parseInt(req.getParameter("quantidade"));
-        double avaliacao = Double.parseDouble(req.getParameter("avaliacao"));
-        String descricao = req.getParameter("descricao");
-
-        List<String> imagens = new ArrayList<>();
-
-
-        DiskFileItemFactory factory = new DiskFileItemFactory();
-        ServletFileUpload upload = new ServletFileUpload(factory);
-
         try {
-            List<FileItem> items = upload.parseRequest(req);
+            String nome = req.getParameter("nome");
+            System.out.println("Valor do parâmetro 'nome': " + nome);
 
-            for (FileItem item : items) {
-                if (!item.isFormField()) {
-                    String imageName = item.getName();
-                    if (imageName != null && !imageName.isEmpty()) {
+            double preco = 0.0;
+            String valorParam = req.getParameter("valor");
+            System.out.println("Valor do parâmetro ' preco': " + valorParam);
+            if (valorParam != null && !valorParam.trim().isEmpty()) {
+                preco = Double.parseDouble(valorParam);
+                System.out.println("Valor do parâmetro ' preco': " + preco);
+            }
+            int quantidade = 0; //
+            String quantidadeParam = req.getParameter("quantidade");
+            System.out.println("Valor do parâmetro 'qtd': " + quantidadeParam);
+            if (quantidadeParam != null && !quantidadeParam.trim().isEmpty()) {
+                quantidade = Integer.parseInt(quantidadeParam);
+                System.out.println("Valor do parâmetro 'qtd': " + quantidade);
+            }
+            double avaliacao = 0.0;
+            String avaliacaoParam = req.getParameter("avaliacao");
+            if (avaliacaoParam != null && !avaliacaoParam.trim().isEmpty()) {
+                avaliacao = Double.parseDouble(avaliacaoParam);
+            }
+            String descricao = req.getParameter("descricao");
 
-                        File uploadedFile = new File("Img/" + imageName);
-                        item.write(uploadedFile);
-                        imagens.add(imageName);
+            List<String> imagens = new ArrayList<>();
+
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+
+            try {
+                List<FileItem> items = upload.parseRequest(req);
+
+                for (FileItem item : items) {
+                    if (!item.isFormField()) {
+                        String imageName = item.getName();
+                        if (imageName != null && !imageName.isEmpty()) {
+                            File uploadedFile = new File("Img/" + imageName);
+                            item.write(uploadedFile);
+                            imagens.add(imageName);
+                        }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
 
+            Livro livro = new Livro(nome, quantidade, imagens, preco, descricao, avaliacao);
+
+            LivroDAO livroDAO = new LivroDAO();
+            livroDAO.cadastrarLivro(livro);
+
+            resp.sendRedirect(req.getContextPath() + "/ListaProduto.html");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            // Tratamento de erro - você pode redirecionar para uma página de erro ou retornar uma mensagem de erro para o usuário
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Ocorreu um erro durante o processamento da requisição.");
         }
-
-        Livro livro = new Livro(nome, quantidade, imagens, preco, descricao, avaliacao);
-
-        LivroDAO livroDAO = new LivroDAO();
-        livroDAO.cadastrarLivro(livro);
-
-        resp.sendRedirect(req.getContextPath() + "/listarUsuarios.html");
     }
+
 
 
 

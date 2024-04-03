@@ -31,7 +31,7 @@ public class AlternarUsuarioServlet extends HttpServlet{
         UserDAO userDAO = new UserDAO();
         userDAO.alternarUsuario(user, confirmacaoSenha);
 
-        resp.sendRedirect(req.getContextPath() + "/listarUsuarios.html");
+        resp.sendRedirect(req.getContextPath() + "/listarUsuarios.jsp");
     }
 }
 

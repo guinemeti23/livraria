@@ -6,6 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserDAO {
@@ -197,5 +199,67 @@ public class UserDAO {
             System.out.println("Error: " + e.getMessage());
         }
     }
+    public List<Usuario> listarUsuarios() {
+        String SQL = "SELECT * FROM USUARIO";
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+            System.out.println("success in database connection");
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Usuario> usuarios = new ArrayList<>();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nome = resultSet.getString("nome");
+                String cpf = resultSet.getString("cpf");
+                String email = resultSet.getString("email");
+                String grupo = resultSet.getString("grupo");
+                boolean status = resultSet.getBoolean("ativo");
+
+                Usuario usuario = new Usuario(id, nome, cpf, email, grupo, status);
+                usuarios.add(usuario);
+            }
+
+
+            System.out.println("success in select * usuario ");
+            connection.close();
+            return usuarios;
+        } catch (Exception e) {
+            System.out.println("fail in database connection");
+            return Collections.emptyList();
+        }
+    }
+
+
+    public List<Usuario> buscarUsuariosPorNome(String nome) {
+        List<Usuario> usuarios = new ArrayList<>();
+
+        String SQL = "SELECT * FROM usuario WHERE nome LIKE ?";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+
+            preparedStatement.setString(1, "%" + nome + "%");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Usuario usuario = new Usuario();
+                    usuario.setId(resultSet.getInt("id"));
+                    usuario.setNome(resultSet.getString("nome"));
+                    usuario.setEmail(resultSet.getString("email"));
+                    usuario.setAtivo(resultSet.getBoolean("ativo"));
+                    usuarios.add(usuario);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuarios;
+    }
+
+
 
 }
+

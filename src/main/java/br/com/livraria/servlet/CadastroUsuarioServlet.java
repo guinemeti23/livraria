@@ -31,6 +31,6 @@ public class CadastroUsuarioServlet extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         userDAO.cadastrarUsuario(user, confirmacaoSenha);
 
-        resp.sendRedirect(req.getContextPath() + "/listarUsuarios.html");
+        resp.sendRedirect(req.getContextPath() + "/listarUsuarios.jsp");
     }
 }

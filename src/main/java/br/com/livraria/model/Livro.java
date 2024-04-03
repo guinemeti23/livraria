@@ -11,7 +11,7 @@ public class Livro {
     private double preco;
     private String descricao;
 
-    public Livro(String nome, int quantidade, List<String> imagens, double preco, String descricao, double avaliacao) {
+    public Livro( String nome, int quantidade, List<String> imagens, double preco, String descricao, double avaliacao) {
         this.nome = nome;
         this.quantidade = quantidade;
         this.imagens = imagens;

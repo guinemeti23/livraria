@@ -1,75 +1,19 @@
-body {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    background-color: #faeee3;
-    color: #887766;
-}
-
-div {
-    background-color: #c5b2a0;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-input {
-    border-radius: 5px;
-    border: 1px solid #a69482;
-    outline: none;
-    font-size: 16px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-button {
-    background-color: #5e282c;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    margin: 0 10px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #a69482;
-}
-
+/* Estilos CSS */
 table {
-    border-collapse: collapse;
     width: 100%;
+    border-collapse: collapse;
 }
 
 th, td {
-    border: 1px solid #0c0c0c;
     padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
 th {
-    background-color: #faeee3;
+    background-color: #f2f2f2;
 }
 
-tr:nth-child(even) {
-    background-color: #faeee3;
-}
-
-.separator {
-    border-top: 1px solid #faeee3;
-    margin-top: 20px;
+form {
     margin-bottom: 20px;
-}
-
-.cadastro-button {
-    background-color: #5e282c;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.cadastro-button:hover {
-    background-color: #a69482;
 }

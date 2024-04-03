@@ -19,6 +19,7 @@
 <!-- Modal de cadastro de produto -->
 <div id="modalCadastroProduto" style="display: none;"></div>
 
+
 <script>
     document.getElementById("listarProdutos").addEventListener("click", function() {
       document.getElementById("listaProdutos").innerHTML = `
@@ -96,8 +97,8 @@
     `;
     });
 
-    document.getElementById("abrirModalCadastro").addEventListener("click", function() {
-      window.open("cadastroProduto.html", "_blank");
+     document.getElementById("abrirModalCadastro").addEventListener("click", function() {
+      window.location.href = "cadastroProduto.html";
     });
 </script>
 </body>

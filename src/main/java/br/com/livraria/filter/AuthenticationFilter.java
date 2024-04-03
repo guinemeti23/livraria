@@ -1,4 +1,4 @@
-package br.com.livraria.filter;
+/*package br.com.livraria.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -35,4 +35,4 @@ public class AuthenticationFilter implements Filter {
 
     }
 
-}
+}*/

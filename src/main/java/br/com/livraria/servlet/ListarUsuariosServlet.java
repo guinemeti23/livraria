@@ -1,4 +1,4 @@
-/*package br.com.livraria.servlet;
+package br.com.livraria.servlet;
 
 import br.com.livraria.dao.UserDAO;
 import br.com.livraria.model.Usuario;
@@ -11,64 +11,31 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/ListaUsuarioServlet")
-public class ListaUsuarioServlet extends HttpServlet {
+@WebServlet("/ListarUsuariosServlet")
+public class ListarUsuariosServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
+        List<Usuario> usuarios = new UserDAO().listarUsuarios();
 
-        if (action == null) {
-            listarUsuarios(req, resp);
-        } else if (action.equals("alterar")) {
-            String id = req.getParameter("id");
-            // Implemente o redirecionamento para a página de alteração com base no ID
-        } else if (action.equals("inativarReativar")) {
-            String id = req.getParameter("id");
-            inativarReativarUsuario(id);
-            resp.sendRedirect("ListaUsuarioServlet");
-        }
-    }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String filtroNome = req.getParameter("filtroNome");
-        if (filtroNome != null && !filtroNome.isEmpty()) {
-            List<Usuario> usuariosFiltrados = UserDAO.buscarUsuariosPorNome(filtroNome);
-            req.setAttribute("usuarios", usuariosFiltrados);
+        if (usuarios.isEmpty()) {
+
+            System.out.println("A lista de usuários está vazia.");
         } else {
-            listarUsuarios(req, resp);
-        }
-        req.getRequestDispatcher("listaUsuarios.jsp").forward(req, resp);
-    }
-
-    private void listarUsuarios(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Usuario> usuarios = UserDAO.listarUsuarios();
-        req.setAttribute("usuarios", usuarios);
-        req.getRequestDispatcher("listaUsuarios.jsp").forward(req, resp);
-    }
-
-    private void inativarReativarUsuario(String id) {
-        // Recupera o usuário com base no ID
-        Usuario usuario = UserDAO.buscarUsuarioPorId(id);
-
-        if (usuario != null) {
-            // Inverte o status do usuário
-            boolean novoStatus = !usuario.isAtivo();
-            usuario.setAtivo(novoStatus);
-
-            // Atualiza o usuário no banco de dados
-            boolean atualizacaoBemSucedida = UserDAO.atualizarUsuario(usuario);
-
-            if (atualizacaoBemSucedida) {
-                System.out.println("Usuário com ID " + id + " foi " + (novoStatus ? "reativado" : "inativado") + " com sucesso.");
-            } else {
-                System.out.println("Falha ao inativar/reativar o usuário com ID " + id + ".");
+            System.out.println("Lista de Usuários 2:");
+            for (Usuario usuario : usuarios) {
+                System.out.println("ID: " + usuario.getId());
+                System.out.println("Nome: " + usuario.getNome());
+                System.out.println("CPF: " + usuario.getCpf());
+                System.out.println("Email: " + usuario.getEmail());
+                System.out.println("Grupo: " + usuario.getGrupo());
+                System.out.println("Status: " + (usuario.isAtivo() ? "Ativo" : "Inativo"));
+                System.out.println();
             }
-        } else {
-            System.out.println("Usuário com ID " + id + " não encontrado.");
+
+            req.setAttribute("usuarios", usuarios);
+            req.getRequestDispatcher("listarUsuarios.jsp").forward(req, resp);
         }
     }
-
-
-}*/
+}
