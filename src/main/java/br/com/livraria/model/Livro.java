@@ -20,6 +20,15 @@ public class Livro {
         this.avaliacao = avaliacao;
     }
 
+    public Livro( String nome, int quantidade, double preco, String descricao, double avaliacao) {
+        this.id = id;
+        this.nome = nome;
+        this.quantidade = quantidade;
+        this.preco = preco;
+        this.descricao = descricao;
+        this.avaliacao = avaliacao;
+    }
+
     public int getQuantidade() {
         return quantidade;
     }

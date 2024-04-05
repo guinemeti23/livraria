@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #faeee3; /* Cor de fundo do body */
+    color: #887766; /* Cor do texto */
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #faeee3; /* Cor de fundo do cabeçalho */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    width: 100px;
+    height: auto;
+}
+
+.user-actions p {
+    margin: 0;
+}
+
+.user-actions .cart-icon {
+    font-size: 24px;
+    color: #5e282c;
+    margin-left: 10px;
+}
+
+.livros-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #faeee3; /* Cor de fundo do conteúdo */
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.livro {
+    width: 200px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #ccc; /* Adiciona borda ao redor de cada livro */
+    padding: 10px; /* Adiciona espaço interno ao redor de cada livro */
+    background-color: #c5b2a0; /* Cor de fundo do livro */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.livro h3 {
+    margin: 10px 0;
+    font-size: 16px;
+    min-height: 60px; /* Altura mínima para o título do livro */
+}
+
+.livro img {
+    width: 150px;
+    height: 200px;
+    object-fit: cover; /* Garante que a imagem cubra completamente o contêiner */
+}
+
+.livro p {
+    margin: 5px 0;
+}
+
+.livro a {
+    text-decoration: none;
+    color: #5e282c;
+}

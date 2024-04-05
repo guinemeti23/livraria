@@ -1,7 +1,7 @@
 package br.com.livraria.servlet;
 
-import br.com.livraria.dao.UserDAO;
-import br.com.livraria.model.Usuario;
+import br.com.livraria.dao.ClienteDAO;
+import br.com.livraria.model.Cliente;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/LoginClienteServlet")
+public class LoginClienteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("login.html").forward(req, resp);
+        req.getRequestDispatcher("loginCliente.html").forward(req, resp);
     }
 
     @Override
@@ -24,25 +24,21 @@ public class LoginServlet extends HttpServlet {
         String email = req.getParameter("email");
         String senha = req.getParameter("senha");
 
-        Usuario user = new Usuario(email, senha);
+        Cliente cliente = new Cliente(email, senha);
 
-        boolean isValidUser = new UserDAO().verifyCredentials(user);
-        boolean isADM =  new UserDAO().isAdmin(user);
+        boolean isValidUser = new ClienteDAO().verifyCredentials(cliente);
+
 
         if (isValidUser) {
             req.getSession().setAttribute("loggedUser", email);
-            if (isADM){
-                req.getSession().setAttribute("isAdmin", isADM);
-                System.out.println("vc é administrador "+ isADM);
-                resp.sendRedirect("inicioADM.html");
-            }else{
+
                 req.setAttribute("message", "Login successful!");
-                resp.sendRedirect("inicio.html");
-            }
+                resp.sendRedirect("telaInicial.html");
+
 
         } else {
             req.setAttribute("message", "Invalid credentials!");
-            resp.sendRedirect("index.html?error=invalid");
+            resp.sendRedirect("loginCliente.html?error=invalid");
         }
 
     }

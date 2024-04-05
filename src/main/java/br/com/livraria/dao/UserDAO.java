@@ -97,9 +97,11 @@ public class UserDAO {
 
             System.out.println("Cadastro realizado com sucesso.");
 
+
         } catch (SQLException e) {
             System.out.println("Erro no cadastro do usuário: " + e.getMessage());
         }
+
     }
 
     private boolean validarCPF(String cpf) {
@@ -262,4 +264,3 @@ public class UserDAO {
 
 
 }
-

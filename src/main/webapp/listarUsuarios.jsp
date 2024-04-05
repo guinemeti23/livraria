@@ -17,6 +17,7 @@
 </form>
 
 <table>
+<thead>
     <tr>
         <th>Nome</th>
         <th>Email</th>
@@ -24,16 +25,16 @@
         <th>Grupo</th>
         <th>Ações</th>
     </tr>
-    <c:forEach var="usuario" items ="${usuarios}">
+</thead>
+<tbody>
+    <c:forEach items="${usuarios}" var="usuario">
     <tr>
-        <td>${usuario.nome}</td>
-        <td>${usuario.email()}</td>
-        <td>Ativo</td>
-        <td>Grupo do Usuário</td>
-        <td>
-        </td>
+        <td><c:out value="${usuario.nome}" /></td>
+        <td><c:out value="${usuario.email}" /></td>
+
     </tr>
     </c:forEach>
+    </tbody>
 </table>
 </body>
 </html>

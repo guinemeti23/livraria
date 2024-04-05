@@ -34,25 +34,13 @@ public class CadastroLivroServlet extends HttpServlet {
             String nome = req.getParameter("nome");
             System.out.println("Valor do parâmetro 'nome': " + nome);
 
-            double preco = 0.0;
-            String valorParam = req.getParameter("valor");
-            System.out.println("Valor do parâmetro ' preco': " + valorParam);
-            if (valorParam != null && !valorParam.trim().isEmpty()) {
-                preco = Double.parseDouble(valorParam);
-                System.out.println("Valor do parâmetro ' preco': " + preco);
-            }
-            int quantidade = 0; //
-            String quantidadeParam = req.getParameter("quantidade");
-            System.out.println("Valor do parâmetro 'qtd': " + quantidadeParam);
-            if (quantidadeParam != null && !quantidadeParam.trim().isEmpty()) {
-                quantidade = Integer.parseInt(quantidadeParam);
-                System.out.println("Valor do parâmetro 'qtd': " + quantidade);
-            }
-            double avaliacao = 0.0;
-            String avaliacaoParam = req.getParameter("avaliacao");
-            if (avaliacaoParam != null && !avaliacaoParam.trim().isEmpty()) {
-                avaliacao = Double.parseDouble(avaliacaoParam);
-            }
+            double preco = Double.parseDouble(req.getParameter("valor"));
+            System.out.println("Valor do parâmetro ' preco': " + preco);
+
+            int quantidade = Integer.parseInt(req.getParameter("quantidade"));
+            System.out.println("Valor do parâmetro 'qtd': " + quantidade);
+
+            double avaliacao = Double.parseDouble(req.getParameter("avaliacao"));
             String descricao = req.getParameter("descricao");
 
             List<String> imagens = new ArrayList<>();
