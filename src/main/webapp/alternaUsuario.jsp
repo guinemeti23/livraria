@@ -1,3 +1,10 @@
+<%@ page import="br.com.livraria.model.Usuario" %>
+<%@ page import="java.util.List" %>
+
+<%
+Usuario usuario = (Usuario) request.getAttribute("usuario");
+%>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -5,28 +12,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>alterar usuário</title>
+    <title>Alterar Usuário</title>
     <link rel="stylesheet" href="css/cadastro.css">
 </head>
 <body>
 <div>
-    <h1>alterar usuários</h1>
+    <h1>Alterar Usuário</h1>
     <form action="AlternaUsuario" method="post">
-        <input type="text" name="nome" placeholder="Nome" required>
+        <input type="text" name="nome" placeholder="Nome" value="<%= usuario.getNome() %>" required>
         <br><br>
-        <input type="text" name="cpf" placeholder="CPF" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}">
+        <input type="text" name="cpf" placeholder="CPF" value="<%= usuario.getCpf() %>" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}">
         <br><br>
-        <input type="text" name="email" placeholder="Email" required>
+        <input type="text" name="email" placeholder="Email" value="<%= usuario.getEmail() %>" readonly>
+
         <br><br>
         <input type="password" name="senha" placeholder="Senha" required>
         <br><br>
         <input type="password" name="confirmacaoSenha" placeholder="Confirmar Senha" required>
         <br><br>
         <label>
-            <input type="radio" name="grupo" value="estoquista" required> Estoquista
+            <input type="radio" name="grupo" value="estoquista" <% if(usuario.getGrupo().equals("estoquista")) { %> checked <% } %> required> Estoquista
         </label>
         <label>
-            <input type="radio" name="grupo" value="administrador" required> Administrador
+            <input type="radio" name="grupo" value="administrador" <% if(usuario.getGrupo().equals("administrador")) { %> checked <% } %> required> Administrador
         </label>
         <br><br>
         <span class="error-message" style="color: red;"></span>

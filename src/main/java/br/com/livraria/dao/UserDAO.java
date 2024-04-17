@@ -183,24 +183,26 @@ public class UserDAO {
     }
 
 
-    public void  abilitarUsuario(Usuario user) {
-        String SQL = "update usuario set =? where email=?";
+    public boolean atualizarStatusUsuario(int userId, boolean novoStatus) {
+        String SQL = "UPDATE usuario SET ativo = ? WHERE id = ?";
         try {
             Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setString(2, user.getEmail());
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.setBoolean(1, novoStatus);
+            preparedStatement.setInt(2, userId);
 
-            if (resultSet.next()) {
-
-            }
+            int rowsUpdated = preparedStatement.executeUpdate();
 
             connection.close();
 
+            return rowsUpdated > 0;
+
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Erro ao atualizar o status do usuário: " + e.getMessage());
+            return false;
         }
     }
+
     public List<Usuario> listarUsuarios() {
         String SQL = "SELECT * FROM USUARIO";
 
@@ -235,7 +237,7 @@ public class UserDAO {
     }
 
 
-    public List<Usuario> buscarUsuariosPorNome(String nome) {
+    public List<Usuario> listarUsuariosPorNome(String nome) {
         List<Usuario> usuarios = new ArrayList<>();
 
         String SQL = "SELECT * FROM usuario WHERE nome LIKE ?";
@@ -251,6 +253,34 @@ public class UserDAO {
                     usuario.setNome(resultSet.getString("nome"));
                     usuario.setEmail(resultSet.getString("email"));
                     usuario.setAtivo(resultSet.getBoolean("ativo"));
+                    usuarios.add(usuario);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuarios;
+    }
+
+    public List<Usuario> listarUsuariosPorID(int id) {
+        List<Usuario> usuarios = new ArrayList<>();
+
+        String SQL = "SELECT * FROM usuario WHERE id LIKE ?";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+
+            preparedStatement.setString(1, "%" + id + "%");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Usuario usuario = new Usuario();
+                    usuario.setId(resultSet.getInt("id"));
+                    usuario.setNome(resultSet.getString("nome"));
+                    usuario.setCpf(resultSet.getString("cpf"));
+                    usuario.setEmail(resultSet.getString("email"));
+                    usuario.setGrupo(resultSet.getString("grupo"));
+
                     usuarios.add(usuario);
                 }
             }
