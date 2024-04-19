@@ -85,7 +85,7 @@ public class UserDAO {
         String SQL = "INSERT INTO USUARIO(EMAIL, SENHA, NOME, CPF, GRUPO, ATIVO) VALUES(?,?,?,?,?,?)";
 
         try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+              PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
 
             preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, senhaEncriptada);

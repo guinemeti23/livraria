@@ -16,15 +16,21 @@
         <img src="https://img.freepik.com/vetores-premium/elementos-de-modelo-de-design-de-icone-de-logotipo-de-livro-logotipo-criativo-com-livro-aberto-e-ramo-de-louros_968697-470.jpg?w=740" alt="Logo da Loja">
     </div>
     <div class="user-actions">
-
-        <a href="loginCliente.html">Login</a>
-
-        <a href="cadastroCliente.html">Cadastre-se</a>
+        <% if(session.getAttribute("Cliente") == null) { %>
+            <a href="loginCliente.html">Login</a>
+            <a href="cadastroCliente.html">Cadastre-se</a>
+        <% } else { %>
+            <p><%= session.getAttribute("Cliente") %></p>
+             <a href="alternarCliente.jsp">Editar</a>
+                <a href="cadasdroEndereco.jsp">Adicionar Endereço</a>
+                <a href="LogoutServlet">Deslogar</a>
+        <% } %>
         <div class="cart-icon">
             <i class="fas fa-shopping-cart"></i>
         </div>
     </div>
 </header>
+
 
 <div class="livros-container">
     <!-- Primeira Linha -->

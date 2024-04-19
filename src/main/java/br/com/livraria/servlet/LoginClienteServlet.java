@@ -28,18 +28,13 @@ public class LoginClienteServlet extends HttpServlet {
 
         boolean isValidUser = new ClienteDAO().verifyCredentials(cliente);
 
-
         if (isValidUser) {
-            req.getSession().setAttribute("loggedUser", email);
-
-                req.setAttribute("message", "Login successful!");
-                resp.sendRedirect("telaInicial.html");
-
-
+            req.getSession().setAttribute("Cliente", email);
+            req.setAttribute("message", "Login successful!");
+            resp.sendRedirect("telaInicial.jsp");
         } else {
             req.setAttribute("message", "Invalid credentials!");
             resp.sendRedirect("loginCliente.html?error=invalid");
         }
-
     }
 }

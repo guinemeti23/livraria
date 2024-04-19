@@ -29,7 +29,7 @@ public class AlternarClienteServlet extends HttpServlet {
         String confirmacaoSenha = req.getParameter("confirmacaoSenha");
         String dataNascimentoStr = req.getParameter("dataNascimento");
         String genero = req.getParameter("genero");
-        String enderecoFaturamento = req.getParameter("enderecoFaturamento");
+
 
         Date dataNascimento = null;
         try {
@@ -40,7 +40,7 @@ public class AlternarClienteServlet extends HttpServlet {
         }
 
 
-        Cliente cliente = new Cliente(nome, cpf, email, senha, dataNascimento, genero, enderecoFaturamento);
+        Cliente cliente = new Cliente(nome, cpf, email, senha, dataNascimento, genero);
 
         ClienteDAO clienteDAO = new ClienteDAO();
         clienteDAO.alternarCliente(cliente, confirmacaoSenha);

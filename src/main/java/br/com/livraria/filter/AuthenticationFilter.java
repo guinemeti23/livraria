@@ -1,4 +1,4 @@
-/*package br.com.livraria.filter;
+package br.com.livraria.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -28,11 +28,10 @@ public class AuthenticationFilter implements Filter {
     @Override
     public void destroy() { }
 
-
     private boolean isUserLoggedOn(HttpServletRequest httpServletRequest){
 
-        return httpServletRequest.getSession().getAttribute("loggedUser") == null;
+        return httpServletRequest.getSession().getAttribute("Cliente") != null;
 
     }
 
-}*/
+}

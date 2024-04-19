@@ -10,16 +10,16 @@ public class Cliente {
     private String senha;
     private Date dataNascimento;
     private String genero;
-    private String enderecoFaturamento;
 
-    public Cliente(String nomeCompleto, String cpf, String email, String senha, Date dataNascimento, String genero, String enderecoFaturamento) {
+
+    public Cliente(String nomeCompleto, String cpf, String email, String senha, Date dataNascimento, String genero) {
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
         this.dataNascimento = dataNascimento;
         this.genero = genero;
-        this.enderecoFaturamento = enderecoFaturamento;
+
     }
 
     public Cliente(String email, String senha) {
@@ -83,11 +83,4 @@ public class Cliente {
         this.genero = genero;
     }
 
-    public String getEnderecoFaturamento() {
-        return enderecoFaturamento;
-    }
-
-    public void setEnderecoFaturamento(String enderecoFaturamento) {
-        this.enderecoFaturamento = enderecoFaturamento;
-    }
 }

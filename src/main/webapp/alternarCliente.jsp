@@ -11,7 +11,7 @@
 <body>
 <div class="container">
     <h1>Cadastro de Cliente</h1>
-    <form action="CadastroCliente" method="post">
+    <form action="AlternaCliente" method="post">
         <input type="text" name="nome" placeholder="Nome completo" required>
         <br><br>
         <input type="text" name="cpf" placeholder="CPF" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}">
@@ -30,43 +30,9 @@
             <option value="feminino">Feminino</option>
             <option value="outro">Outro</option>
         </select>
-        <br><br>
-        <label>
 
-            <input type="text" name="cep" placeholder="CEP" required>
-        </label>
         <br><br>
-        <label>
-
-            <input type="text" name="logradouro" placeholder="Logradouro" required>
-        </label>
-        <br><br>
-        <label>
-
-            <input type="text" name="numero" placeholder="Número" required>
-        </label>
-        <br><br>
-        <label>
-
-            <input type="text" name="complemento" placeholder="Complemento">
-        </label>
-        <br><br>
-        <label>
-
-            <input type="text" name="bairro" placeholder="Bairro" required>
-        </label>
-        <br><br>
-        <label>
-
-            <input type="text" name="cidade" placeholder="Cidade" required>
-        </label>
-        <br><br>
-        <label>
-
-            <input type="text" name="uf" placeholder="UF" required>
-        </label>
-        <br><br>
-        <button type="submit" class="btn-ok">Cadastrar</button>
+        <button type="submit" class="btn-ok">Alternar</button>
         <button type="button" class="btn-cancelar">Cancelar</button>
     </form>
 </div>
