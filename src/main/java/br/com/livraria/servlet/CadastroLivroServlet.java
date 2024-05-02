@@ -65,12 +65,12 @@ public class CadastroLivroServlet extends HttpServlet {
                 e.printStackTrace();
             }
 
-            Livro livro = new Livro(nome, quantidade, imagens, preco, descricao, avaliacao);
+            Livro livro = new Livro(nome, quantidade, preco, descricao, avaliacao);
 
             LivroDAO livroDAO = new LivroDAO();
             livroDAO.cadastrarLivro(livro);
 
-            resp.sendRedirect(req.getContextPath() + "/ListaProduto.html");
+            resp.sendRedirect(req.getContextPath() + "/ListaProduto.jsp");
         } catch (Exception ex) {
             ex.printStackTrace();
             // Tratamento de erro - você pode redirecionar para uma página de erro ou retornar uma mensagem de erro para o usuário

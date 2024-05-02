@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -47,24 +48,25 @@
 </header>
 
 <div class="titulo-livro">
-    <h1>Harry Potter e a Pedra Filosofal</h1>
+    <h1><%= request.getParameter("nome") %></h1>
 </div>
 
 <div class="carrossel-container">
     <div class="carrossel">
-        <img src="https://m.media-amazon.com/images/I/61jgm6ooXzL._SL500_.jpg" alt="Imagem 1">
-        <img src="https://m.media-amazon.com/images/I/91PGBdas6KL._SY500_.jpg" alt="Imagem 2">
-        <img src="https://m.media-amazon.com/images/I/81iEVfHRtzS._SY500_.jpg" alt="Imagem 3">
-        <img src="https://m.media-amazon.com/images/I/81ibfYk4qmL._S500_.jpg" alt="Imagem 4">
+        <img src="Img/<%= request.getParameter("imagemPrincipal") %>" alt="Imagem 1">
+        <img src="Img/<%= request.getParameter("imagem2") %>" alt="Imagem 2">
+        <img src="Img/<%= request.getParameter("imagem3") %>" alt="Imagem 3">
+        <img src="Img/<%= request.getParameter("imagem4") %>" alt="Imagem 4">
+        <img src="Img/<%= request.getParameter("imagem5") %>" alt="Imagem 5">
     </div>
     <button class="prev">&#10094;</button>
     <button class="next">&#10095;</button>
 </div>
 
 <div class="detalhes-produto">
-    <p><strong>Preço:</strong> <strong class="valor">R$ 29,90</strong></p>
-    <p><strong>Avaliação:</strong> ★★★★☆ (4.5)</p>
-    <p><strong>Descrição detalhada:</strong> A saga Harry Potter narra a história de um jovem bruxo, Harry Potter, que descobre aos onze anos de idade que é um bruxo. Ele recebe uma carta da Escola de Magia e Bruxaria de Hogwarts, que finalmente explica quem ele é, onde pertence e o que pode fazer. Ao longo dos anos em Hogwarts, Harry aprende sobre sua herança mágica, sua importância no mundo mágico e sua conexão com o maligno bruxo das trevas, Lord Voldemort. Harry Potter é uma série de sete romances de fantasia escrita pela autora britânica J.K. Rowling. A série narra as aventuras de um jovem bruxo, Harry Potter, e seus amigos Hermione Granger e Ron Weasley, que são alunos da Escola de Magia e Bruxaria de Hogwarts. O tema central da série envolve a luta entre Harry e Voldemort, o bruxo das trevas que matou os pais de Harry e tenta conquistar o mundo mágico.</p>
+    <p><strong>Preço:</strong> <strong class="valor">R$ <%= request.getParameter("preco") %></strong></p>
+    <p><strong>Avaliação:</strong><%= request.getParameter("avaliacao") %></strong></p>
+    <p><strong>Descrição detalhada:</strong> <%= request.getParameter("descricao") %></p>
     <button class="comprar-btn">Comprar</button>
 </div>
 

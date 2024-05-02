@@ -1,3 +1,6 @@
+<%@ page import="br.com.livraria.model.Livro" %>
+<%@ page import="java.util.List" %>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -21,9 +24,9 @@
             <a href="cadastroCliente.html">Cadastre-se</a>
         <% } else { %>
             <p><%= session.getAttribute("Cliente") %></p>
-             <a href="alternarCliente.jsp">Editar</a>
-                <a href="cadasdroEndereco.jsp">Adicionar Endereço</a>
-                <a href="LogoutServlet">Deslogar</a>
+            <a href="alternarCliente.jsp">Editar</a>
+            <a href="cadasdroEndereco.jsp">Adicionar Endereço</a>
+            <a href="LogoutServlet">Deslogar</a>
         <% } %>
         <div class="cart-icon">
             <i class="fas fa-shopping-cart"></i>
@@ -31,85 +34,18 @@
     </div>
 </header>
 
-
 <div class="livros-container">
-    <!-- Primeira Linha -->
-    <div class="row">
-        <!-- Livro 1 -->
+    <% for (Livro livro : (List<Livro>)request.getAttribute("livrosImagens")) { %>
+        <!-- Livro -->
         <div class="livro">
-            <h3>Harry Potter e a Pedra Filosofal</h3>
-            <img src="https://m.media-amazon.com/images/I/61jgm6ooXzL._SY425_.jpg" alt="Harry Potter e a Pedra Filosofal">
-            <p>Valor: R$ 29,90</p>
-            <a href="visualizarProduto.html">Detalhes</a>
-        </div>
-        <!-- Livro 2 -->
-        <div class="livro">
-            <h3>Crepúsculo</h3>
-            <img src="https://m.media-amazon.com/images/I/31NzhGnNLsL._SY445_SX342_.jpg" alt="Crepúsculo">
-            <p>Valor: R$ 24,90</p>
-            <a href="#">Detalhes</a>
-        </div>
-        <!-- Livro 3 -->
-        <div class="livro">
-            <h3>O Código Da Vinci</h3>
-            <img src="https://m.media-amazon.com/images/I/41aVasi7pML._SY445_SX342_.jpg" alt="O Código Da Vinci">
-            <p>Valor: R$ 19,90</p>
-            <a href="#">Detalhes</a>
-        </div>
-        <!-- Livro 4 -->
-        <div class="livro">
-            <h3>O Senhor dos Anéis: A Sociedade do Anel</h3>
-            <img src="https://m.media-amazon.com/images/I/81hCVEC0ExL._SY425_.jpg" alt="O Senhor dos Anéis: A Sociedade do Anel">
-            <p>Valor: R$ 34,90</p>
-            <a href="#">Detalhes</a>
-        </div>
-        <!-- Livro 5 -->
-        <div class="livro">
-            <h3>Orgulho e Preconceito</h3>
-            <img src="https://m.media-amazon.com/images/I/51AHB+f-0DL._SY445_SX342_.jpg" alt="Orgulho e Preconceito">
-            <p>Valor: R$ 39,90</p>
-            <a href="#">Detalhes</a>
-        </div>
-    </div>
+            <h3><%= livro.getNome() %></h3>
+            <img src="Img/<%= livro.getImagemPrincipal() %>" alt="<%= livro.getNome() %>">
+            <p>Valor: R$ <%= livro.getPreco() %></p>
+            <a href="visualizarProduto.jsp?id=<%= livro.getId() %>&nome=<%= livro.getNome() %>&preco=<%= livro.getPreco() %>&descricao=<%= livro.getDescricao() %>&avaliacao=<%= livro.getAvaliacao() %>&imagemPrincipal=<%= livro.getImagemPrincipal() %>&imagem2=<%= livro.getImagem2() %>&imagem3=<%= livro.getImagem3() %>&imagem4=<%= livro.getImagem4() %>&imagem5=<%= livro.getImagem5() %>">Detalhes</a>
 
-    <!-- Segunda Linha -->
-    <div class="row">
-        <!-- Livro 6 -->
-        <div class="livro">
-            <h3>O Diário de Anne Frank</h3>
-            <img src="https://m.media-amazon.com/images/I/51G7Sg0NgRL._SY445_SX342_.jpg" alt="O Diário de Anne Frank">
-            <p>Valor: R$ 27,90</p>
-            <a href="#">Detalhes</a>
+
         </div>
-        <!-- Livro 7 -->
-        <div class="livro">
-            <h3>As Crônicas de Nárnia: O Leão, a Feiticeira e o Guarda-Roupa</h3>
-            <img src="https://m.media-amazon.com/images/I/51+2QAB7I+L._SY445_SX342_.jpg" alt="As Crônicas de Nárnia: O Leão, a Feiticeira e o Guarda-Roupa">
-            <p>Valor: R$ 21,90</p>
-            <a href="#">Detalhes</a>
-        </div>
-        <!-- Livro 8 -->
-        <div class="livro">
-            <h3>1984</h3>
-            <img src="https://m.media-amazon.com/images/I/61M9jDcsl2L._SY425_.jpg" alt="1984">
-            <p>Valor: R$ 31,90</p>
-            <a href="#">Detalhes</a>
-        </div>
-        <!-- Livro 9 -->
-        <div class="livro">
-            <h3>Dom Quixote</h3>
-            <img src="https://m.media-amazon.com/images/I/51542n0o9dL._SY445_SX342_.jpg" alt="Dom Quixote">
-            <p>Valor: R$ 44,90</p>
-            <a href="#">Detalhes</a>
-        </div>
-        <!-- Livro 10 -->
-        <div class="livro">
-            <h3>A Culpa é das Estrelas</h3>
-            <img src="https://m.media-amazon.com/images/I/41yToN1cOML._SY445_SX342_.jpg" alt="A Culpa é das Estrelas">
-            <p>Valor: R$ 26,90</p>
-            <a href="#">Detalhes</a>
-        </div>
-    </div>
+    <% } %>
 </div>
 </body>
 

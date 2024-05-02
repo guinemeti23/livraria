@@ -1,6 +1,7 @@
 package br.com.livraria.dao;
 
 import br.com.livraria.model.Livro;
+import br.com.livraria.model.Usuario;
 
 
 import java.sql.Connection;
@@ -8,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LivroDAO {
@@ -34,9 +37,7 @@ public class LivroDAO {
                 }
             }
 
-            for (String imagem : livro.getImagens()) {
-                cadastrarImagemLivro(connection, idLivro, imagem);
-            }
+
 
             System.out.println("Cadastro realizado com sucesso.");
 
@@ -57,39 +58,43 @@ public class LivroDAO {
         }
     }
 
-    public void listarProdutos() {
-        String SQL = "SELECT codigo, nome, qtd, preco, status FROM livros";
+    public List<Livro> listarProdutos() {
+        String SQL = "SELECT * FROM livros";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+            System.out.println("Sucesso na conexão com o banco de dados");
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            StringBuilder htmlOutput = new StringBuilder();
+            List<Livro> livros = new ArrayList<>();
 
             while (resultSet.next()) {
-                String codigo = resultSet.getString("codigo");
+                int id = resultSet.getInt("id");
                 String nome = resultSet.getString("nome");
-                int quantidade = resultSet.getInt("qtd");
+                int qtd = resultSet.getInt("qtd");
+                String descricao = resultSet.getString("descricao");
+                double avaliacao = resultSet.getDouble("avaliacao");
                 double preco = resultSet.getDouble("preco");
-                String status = resultSet.getString("status");
+                String imagemPrincipal = resultSet.getString("imagem_principal");
+                String imagem2 = resultSet.getString("imagem2");
+                String imagem3 = resultSet.getString("imagem3");
+                String imagem4 = resultSet.getString("imagem4");
+                String imagem5 = resultSet.getString("imagem5");
 
-                htmlOutput.append("<div class=\"livro\">")
-                        .append("<p>Código: ").append(codigo).append("</p>")
-                        .append("<p>Nome: ").append(nome).append("</p>")
-                        .append("<p>Quantidade: ").append(quantidade).append("</p>")
-                        .append("<p>Valor: R$ ").append(String.format("%.2f", preco)).append("</p>")
-                        .append("<p>Status: ").append(status).append(" <a href=\"#\"><i class=\"fas fa-edit\"></i> Alterar</a>")
-                        .append(" <a href=\"#\"><i class=\"fas fa-ban\"></i> Inativar</a>")
-                        .append(" <a href=\"#\"><i class=\"fas fa-sync-alt\"></i> Reativar</a>")
-                        .append(" <a href=\"#\"><i class=\"fas fa-eye\"></i> Visualizar</a></p>")
-                        .append("</div>");
+                Livro livro = new Livro(id, nome, qtd, preco, descricao, avaliacao,
+                        imagemPrincipal, imagem2, imagem3, imagem4, imagem5);
+                livros.add(livro);
             }
 
-            System.out.println(htmlOutput.toString());
-
+            System.out.println("Sucesso na consulta de livros");
+            connection.close();
+            return livros;
         } catch (SQLException e) {
-            System.out.println("Erro ao listar os produtos: " + e.getMessage());
+            System.out.println("Falha na conexão com o banco de dados: " + e.getMessage());
+            return Collections.emptyList();
         }
     }
+
 
 }

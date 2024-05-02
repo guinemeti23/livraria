@@ -4,25 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f728b7f1-5e18-4963-982e-9d3096fe8e47" name="Changes" comment="listar usuario e alterar usuario">
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Endereco.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroEnderecoServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LogoutServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/alternarCliente.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/cadasdroEndereco.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/cadastroCliente.css" afterDir="false" />
+    <list default="true" id="f728b7f1-5e18-4963-982e-9d3096fe8e47" name="Changes" comment="cliente e endereço">
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/ListarProdutoServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LivrosCImagensServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/ClienteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/ClienteDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/filter/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/filter/AuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/AlternarClienteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/AlternarClienteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroClienteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroClienteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LoginClienteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LoginClienteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/cadastroCliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/cadastroCliente.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/cadastro.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/cadastro.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/telaInicial.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/telaInicial.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/LivroDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/LivroDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Livro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Livro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroLivroServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroLivroServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/ListaProduto.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/ListaProduto.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/inicio.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/inicio.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/inicioADM.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/inicioADM.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/telaInicial.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/telaInicial.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/visualizarProduto.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/visualizarProduto.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +27,7 @@
       <list>
         <option value="HTML File" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -162,7 +156,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713394267851</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="cliente e endereço">
+      <option name="closed" value="true" />
+      <created>1713563303602</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1713563303602</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -186,6 +188,7 @@
     <MESSAGE value="listar usuario" />
     <MESSAGE value="tela inicio e crud cliente" />
     <MESSAGE value="listar usuario e alterar usuario" />
-    <option name="LAST_COMMIT_MESSAGE" value="listar usuario e alterar usuario" />
+    <MESSAGE value="cliente e endereço" />
+    <option name="LAST_COMMIT_MESSAGE" value="cliente e endereço" />
   </component>
 </project>
