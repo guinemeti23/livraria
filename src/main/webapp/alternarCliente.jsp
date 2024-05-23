@@ -12,23 +12,23 @@
 <div class="container">
     <h1>Cadastro de Cliente</h1>
     <form action="AlternaCliente" method="post">
-        <input type="text" name="nome" placeholder="Nome completo" required>
+        <input type="text" name="nome" placeholder="Nome completo" value="<%= request.getParameter("nome") %>" required>
         <br><br>
-        <input type="text" name="cpf" placeholder="CPF" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}">
+        <input type="text" name="cpf" placeholder="CPF" value="<%= request.getParameter("cpf") %>" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}">
         <br><br>
-        <input type="text" name="email" placeholder="Email" required>
+        <input type="text" name="email" placeholder="Email" value="<%= request.getParameter("email") %>" required>
         <br><br>
         <input type="password" name="senha" placeholder="Senha" required>
         <br><br>
         <input type="password" name="confirmacaoSenha" placeholder="Confirmar Senha" required>
         <br><br>
-        <input type="text" name="dataNascimento" placeholder="Data de Nascimento (YYYY-MM-DD)" required>
+        <input type="text" name="dataNascimento" placeholder="Data de Nascimento (YYYY-MM-DD)" value="<%= request.getParameter("dataNascimento") %>" required>
         <br><br>
         <select name="genero" required>
             <option value="">Selecione o gênero</option>
-            <option value="masculino">Masculino</option>
-            <option value="feminino">Feminino</option>
-            <option value="outro">Outro</option>
+            <option value="masculino" <%= request.getParameter("genero").equals("masculino") ? "selected" : "" %>>Masculino</option>
+            <option value="feminino" <%= request.getParameter("genero").equals("feminino") ? "selected" : "" %>>Feminino</option>
+            <option value="outro" <%= request.getParameter("genero").equals("outro") ? "selected" : "" %>>Outro</option>
         </select>
 
         <br><br>
@@ -38,3 +38,6 @@
 </div>
 </body>
 </html>
+
+
+

@@ -16,7 +16,7 @@ import java.util.List;
 public class LivroDAO {
 
     public void cadastrarLivro(Livro livro) {
-        String SQL = "INSERT INTO livros(nome, qtd, descricao, avaliacao, preco) VALUES(?,?,?,?,?)";
+        String SQL = "INSERT INTO livros(nome, qtd, descricao, avaliacao, preco, IMAGEM_PRINCIPAL, IMAGEM2, IMAGEM3, IMAGEM4, IMAGEM5) VALUES(?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
              PreparedStatement preparedStatement = connection.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -26,6 +26,11 @@ public class LivroDAO {
             preparedStatement.setString(3, livro.getDescricao());
             preparedStatement.setDouble(4, livro.getAvaliacao());
             preparedStatement.setDouble(5, livro.getPreco());
+            preparedStatement.setString(6, livro.getImagemPrincipal());
+            preparedStatement.setString(7, livro.getImagem2());
+            preparedStatement.setString(8, livro.getImagem3());
+            preparedStatement.setString(9, livro.getImagem4());
+            preparedStatement.setString(10, livro.getImagem5());
             preparedStatement.executeUpdate();
 
             int idLivro;
@@ -38,7 +43,6 @@ public class LivroDAO {
             }
 
 
-
             System.out.println("Cadastro realizado com sucesso.");
 
         } catch (SQLException e) {
@@ -46,17 +50,7 @@ public class LivroDAO {
         }
     }
 
-    private void cadastrarImagemLivro(Connection connection, int idLivro, String imagem) {
-        String SQL = "INSERT INTO livro_imagens(livro_id, imagem) VALUES (?, ?)";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
-            preparedStatement.setInt(1, idLivro);
-            preparedStatement.setString(2, imagem);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Erro no cadastro da imagem do livro: " + e.getMessage());
-        }
-    }
 
     public List<Livro> listarProdutos() {
         String SQL = "SELECT * FROM livros";

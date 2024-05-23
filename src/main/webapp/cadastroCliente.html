@@ -31,44 +31,52 @@
             <option value="outro">Outro</option>
         </select>
         <br><br>
-        <label>
-
-            <input type="text" name="cep" placeholder="CEP" required>
-        </label>
+        <input type="text" name="cep" placeholder="CEP" required onblur="buscarCep()">
         <br><br>
-        <label>
-
-            <input type="text" name="logradouro" placeholder="Logradouro" required>
-        </label>
+        <input type="text" name="logradouro" placeholder="Logradouro" required>
         <br><br>
-        <label>
-
-            <input type="text" name="numero" placeholder="Número" required>
-        </label>
+        <input type="text" name="numero" placeholder="Número" required>
         <br><br>
-        <label>
-
-            <input type="text" name="complemento" placeholder="Complemento">
-        </label>
+        <input type="text" name="complemento" placeholder="Complemento">
         <br><br>
-        <label>
-
-            <input type="text" name="bairro" placeholder="Bairro" required>
-        </label>
+        <input type="text" name="bairro" placeholder="Bairro" required>
         <br><br>
-        <label>
-
-            <input type="text" name="cidade" placeholder="Cidade" required>
-        </label>
+        <input type="text" name="cidade" placeholder="Cidade" required>
         <br><br>
-        <label>
-
-            <input type="text" name="uf" placeholder="UF" required>
-        </label>
+        <input type="text" name="uf" placeholder="UF" required>
         <br><br>
         <button type="submit" class="btn-ok">Cadastrar</button>
         <button type="button" class="btn-cancelar">Cancelar</button>
     </form>
 </div>
+
+<script>
+    function buscarCep() {
+        var cep = document.querySelector("[name='cep']").value.replace(/\D/g, ''); // Remove caracteres não numéricos
+        if (cep.length === 8) {
+            var url = `https://viacep.com.br/ws/${cep}/json/`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.erro) {
+                        document.querySelector("[name='logradouro']").value = data.logradouro;
+                        document.querySelector("[name='complemento']").value = data.complemento;
+                        document.querySelector("[name='bairro']").value = data.bairro;
+                        document.querySelector("[name='cidade']").value = data.localidade;
+                        document.querySelector("[name='uf']").value = data.uf;
+                    } else {
+                        alert("CEP não encontrado.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Falha ao buscar o CEP', error);
+                    alert("Erro ao buscar informações do CEP.");
+                });
+        } else {
+            alert("Digite um CEP válido com 8 dígitos.");
+        }
+    }
+</script>
+
 </body>
 </html>

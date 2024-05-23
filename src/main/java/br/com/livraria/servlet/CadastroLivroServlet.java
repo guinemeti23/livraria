@@ -31,49 +31,39 @@ public class CadastroLivroServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String nome = req.getParameter("nome");
+
+            Map<String, String> parameters = uploadImage(req);
+
+            String nome = parameters.get("nome");
             System.out.println("Valor do parâmetro 'nome': " + nome);
 
-            double preco = Double.parseDouble(req.getParameter("valor"));
+            double preco = Double.parseDouble(parameters.get("valor"));
             System.out.println("Valor do parâmetro ' preco': " + preco);
 
-            int quantidade = Integer.parseInt(req.getParameter("quantidade"));
+            int quantidade = Integer.parseInt(parameters.get("quantidade"));
             System.out.println("Valor do parâmetro 'qtd': " + quantidade);
 
-            double avaliacao = Double.parseDouble(req.getParameter("avaliacao"));
-            String descricao = req.getParameter("descricao");
+            double avaliacao = Double.parseDouble(parameters.get("avaliacao"));
+            String descricao = parameters.get("descricao");
 
-            List<String> imagens = new ArrayList<>();
+            String imagemPrincipal = parameters.get("imagemPrincipal");
 
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
+            String imagem2 = parameters.get("imagem2");
 
-            try {
-                List<FileItem> items = upload.parseRequest(req);
+            String imagem3 = parameters.get("imagem3");
+            String imagem4 = parameters.get("imagem4");
+            String imagem5 = parameters.get("imagem5");
 
-                for (FileItem item : items) {
-                    if (!item.isFormField()) {
-                        String imageName = item.getName();
-                        if (imageName != null && !imageName.isEmpty()) {
-                            File uploadedFile = new File("Img/" + imageName);
-                            item.write(uploadedFile);
-                            imagens.add(imageName);
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-            Livro livro = new Livro(nome, quantidade, preco, descricao, avaliacao);
+            Livro livro = new Livro(nome, quantidade, preco, descricao, avaliacao, imagemPrincipal, imagem2, imagem3, imagem4, imagem5);
 
             LivroDAO livroDAO = new LivroDAO();
             livroDAO.cadastrarLivro(livro);
 
-            resp.sendRedirect(req.getContextPath() + "/ListaProduto.jsp");
+            resp.sendRedirect(req.getContextPath() + "/ListarProdutoServlet");
         } catch (Exception ex) {
             ex.printStackTrace();
-            // Tratamento de erro - você pode redirecionar para uma página de erro ou retornar uma mensagem de erro para o usuário
+
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Ocorreu um erro durante o processamento da requisição.");
         }
     }
@@ -83,7 +73,7 @@ public class CadastroLivroServlet extends HttpServlet {
 
     private Map< String, String> uploadImage(HttpServletRequest httpServletRequest) {
 
-        HashMap<String, String>  parameters = new HashMap<>();
+        HashMap<String, String> parameters = new HashMap<>();
 
         if (isMultipartContent(httpServletRequest)){
             try {
@@ -105,16 +95,19 @@ public class CadastroLivroServlet extends HttpServlet {
 
     }
 
-    private void checkFieldType(FileItem fileItem, Map requestParameters) throws Exception {
-
-        if (fileItem.isFormField()){
+    private void checkFieldType(FileItem fileItem, Map<String, String> requestParameters) throws Exception {
+        if (fileItem.isFormField()) {
             requestParameters.put(fileItem.getFieldName(), fileItem.getString());
-        }else{
-            String fileName = processUploadedFile(fileItem);
-            requestParameters.put("image", fileName);
-        }
+        } else {
+            String fieldName = fileItem.getFieldName();
+            if (fieldName.equals("imagemPrincipal") || fieldName.startsWith("imagem")) {
 
+                String fileName = processUploadedFile(fileItem);
+                requestParameters.put(fieldName, fileName);
+            }
+        }
     }
+
 
     private String processUploadedFile(FileItem fileItem) throws Exception {
         Long currentTime = new Date().getTime();

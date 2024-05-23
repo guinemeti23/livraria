@@ -11,6 +11,9 @@ public class Cliente {
     private Date dataNascimento;
     private String genero;
 
+    public Cliente() {
+
+    }
 
     public Cliente(String nomeCompleto, String cpf, String email, String senha, Date dataNascimento, String genero) {
         this.nomeCompleto = nomeCompleto;

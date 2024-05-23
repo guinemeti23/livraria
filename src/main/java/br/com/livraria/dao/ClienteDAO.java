@@ -1,10 +1,12 @@
 package br.com.livraria.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.livraria.model.Cliente;
 import br.com.livraria.model.Endereco;
-import br.com.livraria.model.Usuario;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.servlet.http.HttpServlet;
@@ -77,7 +79,7 @@ public class ClienteDAO {
             pstmtEndereco.setString(3, endereco.getNumero());
             pstmtEndereco.setString(4, endereco.getComplemento());
             pstmtEndereco.setString(5, endereco.getBairro());
-            pstmtEndereco.setString(6, endereco.getCidade());
+            pstmtEndereco.setString(6, endereco.getLocalidade());
             pstmtEndereco.setString(7, endereco.getUf());
             pstmtEndereco.setInt(8, clienteID);
             pstmtEndereco.executeUpdate();
@@ -92,7 +94,7 @@ public class ClienteDAO {
 
 
     private boolean validarCPF(String cpf) {
-        cpf = cpf.replaceAll("[.-]", ""); // Remove pontos e traços
+        cpf = cpf.replaceAll("[.-]", "");
         if ((cpf == null) || (cpf.length() != 11) || cpf.matches(cpf.charAt(0) + "{11}")) {
             return false;
         }
@@ -167,34 +169,86 @@ public class ClienteDAO {
         }
     }
 
-    public void cadastrarEndereco( Endereco endereco) {
-
-        String uf = endereco.getUf().trim();
-
-        String SQL = "INSERT INTO Enderecos (CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+    public void cadastrarEndereco(Endereco endereco) {
+        String SQL = "INSERT INTO Enderecos (CLIENTEID, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
              PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
 
-            // Inserir o endereço
-            preparedStatement.setString(1, endereco.getCep());
-            preparedStatement.setString(2, endereco.getLogradouro());
-            preparedStatement.setString(3, endereco.getNumero());
-            preparedStatement.setString(4, endereco.getComplemento());
-            preparedStatement.setString(5, endereco.getBairro());
-            preparedStatement.setString(6, endereco.getCidade());
-            preparedStatement.setString(7, endereco.getUf());
+            preparedStatement.setInt(1, endereco.getClienteId());
+            preparedStatement.setString(2, endereco.getCep());
+            preparedStatement.setString(3, endereco.getLogradouro());
+            preparedStatement.setString(4, endereco.getNumero());
+            preparedStatement.setString(5, endereco.getComplemento());
+            preparedStatement.setString(6, endereco.getBairro());
+            preparedStatement.setString(7, endereco.getLocalidade());
+            preparedStatement.setString(8, endereco.getUf());
             preparedStatement.executeUpdate();
 
-
-
-                System.out.println("Cadastro realizado com sucesso.");
-
-
+            System.out.println("Cadastro realizado com sucesso.");
         } catch (SQLException e) {
             System.out.println("Erro no cadastro do cliente: " + e.getMessage());
         }
+    }
+
+
+    public List<Cliente> listarClientePorEmail(String email) {
+        List<Cliente> clientes = new ArrayList<>();
+
+        String SQL = "SELECT * FROM CLIENTE WHERE Email LIKE ?";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+
+            preparedStatement.setString(1, "%" + email + "%");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Cliente cliente = new Cliente();
+                    cliente.setId(resultSet.getInt("ID"));
+                    cliente.setNomeCompleto(resultSet.getString("NOMECOMPLETO"));
+                    cliente.setCpf(resultSet.getString("CPF"));
+                    cliente.setEmail(resultSet.getString("EMAIL"));
+                    cliente.setSenha(resultSet.getString("SENHA"));
+                    cliente.setDataNascimento(resultSet.getDate("DATANASCIMENTO"));
+                    cliente.setGenero(resultSet.getString("GENERO"));
+                    clientes.add(cliente);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return clientes;
+    }
+
+    public List<Endereco> listarEndereco(int idCliente) {
+        List<Endereco> enderecos = new ArrayList<>();
+
+        String SQL = "SELECT * FROM ENDERECOS WHERE CLIENTEID LIKE ?";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+
+            preparedStatement.setString(1, "%" + idCliente + "%");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Endereco endereco = new Endereco();
+                    endereco.setEnderecoId(resultSet.getInt("ENDERECOID"));
+                    endereco.setLogradouro(resultSet.getString("LOGRADOURO"));
+                    endereco.setNumero(resultSet.getString("NUMERO"));
+                    endereco.setComplemento(resultSet.getString("COMPLEMENTO"));
+                    endereco.setBairro(resultSet.getString("BAIRRO"));
+                    endereco.setLocalidade(resultSet.getString("CIDADE"));
+                    endereco.setUf(resultSet.getString("UF"));
+                    endereco.setCep(resultSet.getString("CEP"));
+                    enderecos.add(endereco);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return enderecos;
     }
 
 }

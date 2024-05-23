@@ -61,7 +61,7 @@ public class CadastroClienteServlet extends HttpServlet {
         clienteDAO.cadastrarCliente(cliente, confirmacaoSenha, endereco);
 
 
-        resp.sendRedirect(req.getContextPath() + "/loginCliente.html");
+        resp.sendRedirect(req.getContextPath() + "/loginCliente.jsp");
     }
 
 }

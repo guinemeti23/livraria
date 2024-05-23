@@ -10,7 +10,7 @@
 </head>
 <body>
 <h2 class="titulo">Cadastro de Produtos</h2>
-<form action="CadastroLivro" method="post">
+<form action="CadastroLivro" method="post" enctype="multipart/form-data">
     <div class="input-group">
         <label for="nome">Nome do Produto:</label>
         <input type="text" id="nome" name="nome" required>
@@ -37,21 +37,12 @@
     </div>
 
     <div class="input-group">
-        <label for="imagens">Imagens (máximo 5):</label>
-        <input type="file" id="imagens" name="imagens[]" accept="image/*" multiple required>
-        <div id="imagens-preview"></div>
+        <label for="imagemPrincipal">Imagens (máximo 5):</label>
+        <input type="file" id="imagemPrincipal" name="imagemPrincipal" >
+
     </div>
 
-    <div class="input-group">
-        <label for="remover-imagem">Remover Imagem:</label>
-        <select id="remover-imagem" name="remover-imagem"></select>
-        <button type="button" id="remover-imagem-btn">Remover</button>
-    </div>
 
-    <div class="input-group">
-        <label for="imagem-principal">Imagem Principal:</label>
-        <select id="imagem-principal" name="imagem-principal"></select>
-    </div>
 
     <div class="espaco"></div>
 

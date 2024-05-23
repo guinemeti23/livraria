@@ -45,6 +45,6 @@ public class AlternarClienteServlet extends HttpServlet {
         ClienteDAO clienteDAO = new ClienteDAO();
         clienteDAO.alternarCliente(cliente, confirmacaoSenha);
 
-        resp.sendRedirect(req.getContextPath() + "/loginCliente.html");
+        resp.sendRedirect(req.getContextPath() + "/loginCliente.jsp");
     }
 }

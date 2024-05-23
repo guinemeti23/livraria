@@ -1,49 +1,74 @@
 package br.com.livraria.model;
 
 public class Endereco {
+    private  String siafi;
+    private  String ddd;
+    private  String gia;
+    private  String ibge;
+    private int clienteId;
+    private int enderecoId;
+    private String cep;
+    private String logradouro;
+    private String numero;
+    private String complemento;
+    private String bairro;
+    private String localidade;
+    private String uf;
 
-        private String cep;
-        private String logradouro;
-        private String complemento;
-        private String bairro;
+    // Constructor, getters, and setters
 
-        private String numero;
-        private String cidade;
-
-        private String localidade;
-        private String uf;
-        private String ibge;
-        private String gia;
-        private String ddd;
-        private String siafi;
-
-
-    public Endereco(String cep, String logradouro,String numero, String complemento, String bairro, String cidade, String uf) {
-        this.cep = cep;
-        this.logradouro = logradouro;
-        this.complemento = complemento;
-        this.bairro = bairro;
-        this.numero = numero;
-        this.cidade = cidade;
-        this.uf = uf;
-    }
 
     public Endereco() {
     }
 
-    public Endereco(String cep, String logradouro, String complemento, String bairro, String localidade, String uf, String ibge, String gia, String ddd, String siafi) {
-            this.cep = cep;
-            this.logradouro = logradouro;
-            this.complemento = complemento;
-            this.bairro = bairro;
-            this.localidade = localidade;
-            this.uf = uf;
-            this.ibge = ibge;
-            this.gia = gia;
-            this.ddd = ddd;
-            this.siafi = siafi;
-        }
+    public Endereco(int clienteId, String cep, String logradouro, String numero, String complemento, String bairro, String localidade, String uf) {
+        this.clienteId = clienteId;
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.localidade = localidade;
+        this.uf = uf;
+    }
 
+    public Endereco(String cep, String logradouro, String numero, String complemento, String bairro, String localidade, String uf) {
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.localidade = localidade;
+        this.uf = uf;
+    }
+
+    public Endereco(int endereçoId, int clienteId, String cep, String logradouro, String numero, String complemento, String bairro, String localidade, String uf) {
+        this.enderecoId = endereçoId;
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.localidade = localidade;
+        this.uf = uf;
+    }
+
+
+    public int getEnderecoId() {
+        return enderecoId;
+    }
+
+    public void setEnderecoId(int endereçoId) {
+        this.enderecoId = endereçoId;
+    }
+
+    public int getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(int clienteId) {
+        this.clienteId = clienteId;
+    }
 
     public String getNumero() {
         return numero;
@@ -53,28 +78,12 @@ public class Endereco {
         this.numero = numero;
     }
 
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
     public String getCep() {
         return cep;
     }
 
     public void setCep(String cep) {
         this.cep = cep;
-    }
-
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
     }
 
     public String getComplemento() {
@@ -91,6 +100,30 @@ public class Endereco {
 
     public void setBairro(String bairro) {
         this.bairro = bairro;
+    }
+
+    public String getGia() {
+        return gia;
+    }
+
+    public void setGia(String gia) {
+        this.gia = gia;
+    }
+
+    public String getDdd() {
+        return ddd;
+    }
+
+    public void setDdd(String ddd) {
+        this.ddd = ddd;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public String getLocalidade() {
@@ -117,22 +150,6 @@ public class Endereco {
         this.ibge = ibge;
     }
 
-    public String getGia() {
-        return gia;
-    }
-
-    public void setGia(String gia) {
-        this.gia = gia;
-    }
-
-    public String getDdd() {
-        return ddd;
-    }
-
-    public void setDdd(String ddd) {
-        this.ddd = ddd;
-    }
-
     public String getSiafi() {
         return siafi;
     }
@@ -140,18 +157,5 @@ public class Endereco {
     public void setSiafi(String siafi) {
         this.siafi = siafi;
     }
-
-    @Override
-    public String toString() {
-        return "CEP: " + cep + "\n" +
-                "Logradouro: " + logradouro + "\n" +
-                "Complemento: " + complemento + "\n" +
-                "Bairro: " + bairro + "\n" +
-                "Localidade: " + localidade + "\n" +
-                "UF: " + uf + "\n" +
-                "IBGE: " + ibge + "\n" +
-                "GIA: " + gia + "\n" +
-                "DDD: " + ddd + "\n" +
-                "SIAFI: " + siafi;
-    }
 }
+

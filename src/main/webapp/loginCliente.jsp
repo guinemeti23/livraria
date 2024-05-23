@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,22 +15,25 @@
 <div id="container">
     <h1>Login de Cliente</h1>
     <form action="LoginClienteServlet" method="post">
-        <input type="text" name="email" placeholder="Email" style="margin-bottom: 10px;"><br>
-        <input type="password" name="senha" placeholder="Senha" style="margin-bottom: 10px;"><br>
+
+        <input type="hidden" name="redirectUrl" value="${fn:escapeXml(param.redirectUrl)}" />
+        <input type="text" name="email" placeholder="Email" required style="margin-bottom: 10px;"><br>
+        <input type="password" name="senha" placeholder="Senha" required style="margin-bottom: 10px;"><br>
         <button type="submit" class="btn-ok" id="btn-ok">Ok</button>
         <button type="button" class="btn-cancelar">Cancelar</button>
+
     </form>
+        <a href="cadastroCliente.html">Cadastre-se</a>
+
     <div id="alert" style="display: none;"></div>
 </div>
+
 <script>
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const error = urlParams.get('error');
-        if (error === 'invalid') {
-            document.getElementById('alert').style.display = 'block';
-            document.getElementById('alert').textContent = 'Email ou senha inválidos!';
-        }
-    }
+function redirectToLogin() {
+    var currentUrl = window.location.href;
+    var loginUrl = 'loginCliente.jsp?redirectUrl=' + encodeURIComponent(currentUrl);
+    window.location.href = loginUrl;
+}
 </script>
 </body>
 </html>

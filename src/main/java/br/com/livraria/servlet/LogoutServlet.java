@@ -12,9 +12,10 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().invalidate();
-        req.setAttribute("message", "Success on logout");
-        req.getRequestDispatcher("telaInicial.jsp").forward(req, resp);
-    }
 
+        req.getSession().invalidate();
+        req.setAttribute("message", "Logout realizado com sucesso");
+        resp.sendRedirect(req.getHeader("referer"));
+    }
 }
+

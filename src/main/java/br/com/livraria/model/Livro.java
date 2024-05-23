@@ -33,13 +33,18 @@ public class Livro {
         this.imagem5 = imagem5;
     }
 
-    public Livro(String nome, int quantidade, double preco, String descricao, double avaliacao) {
-        this.id = id;
+    public Livro( String nome, int quantidade, double preco, String descricao, double avaliacao,
+                 String imagemPrincipal, String imagem2, String imagem3, String imagem4, String imagem5) {
         this.nome = nome;
         this.quantidade = quantidade;
         this.preco = preco;
         this.descricao = descricao;
         this.avaliacao = avaliacao;
+        this.imagemPrincipal = imagemPrincipal;
+        this.imagem2 = imagem2;
+        this.imagem3 = imagem3;
+        this.imagem4 = imagem4;
+        this.imagem5 = imagem5;
     }
 
     public int getQuantidade() {
