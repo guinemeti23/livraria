@@ -6,6 +6,9 @@ public class ItemCarrinho {
     private double livroPreco;
     private int quantidade;
 
+    public ItemCarrinho() {
+    }
+
     public ItemCarrinho(int livroId, String livroNome, double livroPreco, int quantidade) {
         this.livroId = livroId;
         this.livroNome = livroNome;

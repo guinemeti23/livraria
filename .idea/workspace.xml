@@ -4,48 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f728b7f1-5e18-4963-982e-9d3096fe8e47" name="Changes" comment="listar e visualizar produto">
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/PedidoDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/ViaCepService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/ItemCarrinho.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Pedido.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/AdicionarAoCarrinhoServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/AlterarPedidoServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroPedidoServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CarregarItensCarrinhoServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/ListarEnderecoServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/ListarPedidosEstoqueServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/ListarPedidosServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LoginServletTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/UpdateCartServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/Carrinho.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/Pedidos.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/carrinho.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/listaPedidosEstoque.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/pagamento.jsp" afterDir="false" />
+    <list default="true" id="f728b7f1-5e18-4963-982e-9d3096fe8e47" name="Changes" comment="c arrinho e pedido">
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/DetalhesPedidoServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/UpdateCartServletTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/detalhesPedido.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/ClienteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/ClienteDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/LivroDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/LivroDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Endereco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Endereco.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Livro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Livro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/AlternarClienteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/AlternarClienteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroClienteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroClienteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroEnderecoServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroEnderecoServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroLivroServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroLivroServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LivrosCImagensServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LivrosCImagensServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LoginClienteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LoginClienteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LogoutServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LogoutServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/alternarCliente.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/alternarCliente.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/cadasdroEndereco.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/cadasdroEndereco.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/cadastroCliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/cadastroCliente.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/cadastroProduto.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/cadastroProduto.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/inicio.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/inicio.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/inicioADM.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/inicioADM.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/loginCliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/loginCliente.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/PedidoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/dao/PedidoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/ItemCarrinho.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/ItemCarrinho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Pedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/model/Pedido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/AlterarPedidoServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/AlterarPedidoServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroPedidoServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/CadastroPedidoServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LoginServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/livraria/servlet/LoginServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/Pedidos.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/Pedidos.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/listaPedidosEstoque.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/listaPedidosEstoque.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/telaInicial.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/telaInicial.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/visualizarProduto.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/visualizarProduto.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +72,7 @@
       <recent name="C:\Users\Dell\Desktop\Nova pasta\livraria\src\main\webapp" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LoginServletTest">
+  <component name="RunManager" selected="JUnit.UpdateCartServletTest.testDoPost">
     <configuration name="LoginServletTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="livraria" />
       <extension name="coverage">
@@ -146,8 +120,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UpdateCartServletTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="livraria" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.livraria.servlet.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="br.com.livraria.servlet" />
+      <option name="MAIN_CLASS_NAME" value="br.com.livraria.servlet.UpdateCartServletTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UpdateCartServletTest.testDoPost" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="livraria" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.livraria.servlet.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="br.com.livraria.servlet" />
+      <option name="MAIN_CLASS_NAME" value="br.com.livraria.servlet.UpdateCartServletTest" />
+      <option name="METHOD_NAME" value="testDoPost" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UpdateCartServletTest.testDoPost" />
+        <item itemvalue="JUnit.UpdateCartServletTest" />
         <item itemvalue="JUnit.LoginServletTest" />
         <item itemvalue="JUnit.LoginServletTest.testDoPost_UsuarioValidoAdmin" />
         <item itemvalue="JUnit.LoginServletTest.testDoPost_UsuarioValidoNaoAdmin" />
@@ -259,7 +266,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714650639205</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="c arrinho e pedido">
+      <option name="closed" value="true" />
+      <created>1716491338038</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1716491338038</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,6 +300,7 @@
     <MESSAGE value="listar usuario e alterar usuario" />
     <MESSAGE value="cliente e endereço" />
     <MESSAGE value="listar e visualizar produto" />
-    <option name="LAST_COMMIT_MESSAGE" value="listar e visualizar produto" />
+    <MESSAGE value="c arrinho e pedido" />
+    <option name="LAST_COMMIT_MESSAGE" value="c arrinho e pedido" />
   </component>
 </project>

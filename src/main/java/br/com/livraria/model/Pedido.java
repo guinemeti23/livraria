@@ -3,6 +3,10 @@ package br.com.livraria.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pedido {
     private int pedidoId;
     private int clienteId;
@@ -10,12 +14,17 @@ public class Pedido {
     private String formaDePagamento;
     private String frete;
     private double valorTotal;
-    private List<ItemCarrinho> itens;  // Usando ItemCarrinho
+    private Date data;
+    private String status;
+    private List<ItemCarrinho> itens;
 
-    // Construtor
+    // Construtores
     public Pedido() {
         this.itens = new ArrayList<>();
+        this.data = new Date();
+        this.status = "aguardando pagamento";
     }
+
     public Pedido(int clienteId, int enderecoId, String formaDePagamento, String frete, double valorTotal) {
         this.clienteId = clienteId;
         this.enderecoId = enderecoId;
@@ -23,16 +32,28 @@ public class Pedido {
         this.frete = frete;
         this.valorTotal = valorTotal;
         this.itens = new ArrayList<>();
+        this.data = new Date();
+        this.status = "aguardando pagamento";
     }
 
+    public Pedido(int clienteId, int enderecoId, String formaDePagamento, String frete, double valorTotal, Date data, String status) {
+        this.clienteId = clienteId;
+        this.enderecoId = enderecoId;
+        this.formaDePagamento = formaDePagamento;
+        this.frete = frete;
+        this.valorTotal = valorTotal;
+        this.itens = new ArrayList<>();
+        this.data = data;
+        this.status = "aguardando pagamento";
+    }
 
+    // Métodos para manipular o total do pedido
     public void calcularValorTotal() {
         valorTotal = 0;
         for (ItemCarrinho item : itens) {
             valorTotal += item.getLivroPreco() * item.getQuantidade();
         }
     }
-
 
     public void adicionarItem(ItemCarrinho item) {
         itens.add(item);
@@ -51,13 +72,37 @@ public class Pedido {
         }
     }
 
+    // Getters e Setters
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public List<ItemCarrinho> getItens() {
         return itens;
     }
 
+    public void setItens(List<ItemCarrinho> itens) {
+        this.itens = itens;
+    }
+
     public double getValorTotal() {
         return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
     public int getPedidoId() {
@@ -99,13 +144,4 @@ public class Pedido {
     public void setFrete(String frete) {
         this.frete = frete;
     }
-
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
-    public void setItens(List<ItemCarrinho> itens) {
-        this.itens = itens;
-    }
 }
-

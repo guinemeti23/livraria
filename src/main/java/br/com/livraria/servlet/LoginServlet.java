@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
                 resp.sendRedirect("inicioADM.html");
             }else{
                 req.setAttribute("message", "Login successful!");
-                resp.sendRedirect("inicio.html");
+                resp.sendRedirect("inicio.jsp");
             }
 
         } else {

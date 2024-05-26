@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-/*@WebServlet("/AlterarPedido")
+@WebServlet("/AlterarPedido")
 public class AlterarPedidoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pedidoId = Integer.parseInt(request.getParameter("pedidoId"));
         String novoStatus = request.getParameter("status");
+
+        System.out.println("Alterando status do pedido " + pedidoId + " para " + novoStatus);  // Adicione este log
 
         PedidoDAO pedidoDAO = new PedidoDAO();
         try {
@@ -25,4 +27,6 @@ public class AlterarPedidoServlet extends HttpServlet {
             response.sendRedirect("listaPedidosEstoque.jsp?error=Erro ao atualizar o pedido");
         }
     }
-}*/
+
+}
+

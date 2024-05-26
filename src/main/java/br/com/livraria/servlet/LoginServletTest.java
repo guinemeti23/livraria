@@ -6,21 +6,27 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import br.com.livraria.dao.UserDAO;
+
 import static org.mockito.Mockito.*;
 
-/*public class LoginServletTest {
+public class LoginServletTest {
 
     @Mock
     private HttpServletRequest request;
+
     @Mock
     private HttpServletResponse response;
+
     @Mock
     private HttpSession session;
+
     @Mock
     private UserDAO userDAO;
 
@@ -30,12 +36,11 @@ import static org.mockito.Mockito.*;
     @Before
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        loginServlet = new LoginServlet(userDAO); // Injetando dependência
         when(request.getSession()).thenReturn(session);
     }
 
     @Test
-    public void testDoPost_UsuarioValidoAdmin() throws IOException {
+    public void testDoPost_UsuarioValidoAdmin() throws ServletException, IOException {
         when(request.getParameter("email")).thenReturn("admin@example.com");
         when(request.getParameter("senha")).thenReturn("password");
         when(userDAO.verifyCredentials(any(Usuario.class))).thenReturn(true);
@@ -49,7 +54,7 @@ import static org.mockito.Mockito.*;
     }
 
     @Test
-    public void testDoPost_UsuarioValidoNaoAdmin() throws IOException {
+    public void testDoPost_UsuarioValidoNaoAdmin() throws ServletException, IOException {
         when(request.getParameter("email")).thenReturn("user@example.com");
         when(request.getParameter("senha")).thenReturn("password");
         when(userDAO.verifyCredentials(any(Usuario.class))).thenReturn(true);
@@ -58,11 +63,11 @@ import static org.mockito.Mockito.*;
         loginServlet.doPost(request, response);
 
         verify(session).setAttribute("loggedUser", "user@example.com");
-        verify(response).sendRedirect("inicio.html");
+        verify(response).sendRedirect("inicio.jsp");
     }
 
     @Test
-    public void testDoPost_UsuarioInvalido() throws IOException {
+    public void testDoPost_UsuarioInvalido() throws ServletException, IOException {
         when(request.getParameter("email")).thenReturn("invalid@example.com");
         when(request.getParameter("senha")).thenReturn("password");
         when(userDAO.verifyCredentials(any(Usuario.class))).thenReturn(false);
@@ -72,4 +77,3 @@ import static org.mockito.Mockito.*;
         verify(response).sendRedirect("index.html?error=invalid");
     }
 }
-*/

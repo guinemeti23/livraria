@@ -13,7 +13,7 @@ public class PedidoDAO {
     private static final String PASSWORD = "sa";
 
     public void adicionarPedido(Pedido pedido) throws SQLException {
-        String sqlPedido = "INSERT INTO Pedidos (clienteId, enderecoId, formaDePagamento, frete, valorTotal) VALUES (?, ?, ?, ?, ?)";
+        String sqlPedido = "INSERT INTO Pedidos (clienteId, enderecoId, formaDePagamento, frete, valorTotal, data, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -29,8 +29,9 @@ public class PedidoDAO {
             preparedStatement.setString(3, pedido.getFormaDePagamento());
             preparedStatement.setString(4, pedido.getFrete());
             preparedStatement.setDouble(5, pedido.getValorTotal());
+            preparedStatement.setDate(6, new java.sql.Date(pedido.getData().getTime()));
+            preparedStatement.setString(7, pedido.getStatus());
             preparedStatement.executeUpdate();
-
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int pedidoId = generatedKeys.getInt(1);
@@ -84,6 +85,8 @@ public class PedidoDAO {
                 pedido.setFormaDePagamento(resultSet.getString("formaDePagamento"));
                 pedido.setFrete(resultSet.getString("frete"));
                 pedido.setValorTotal(resultSet.getDouble("valorTotal"));
+                pedido.setData(resultSet.getDate("data"));
+                pedido.setStatus(resultSet.getString("status"));
 
                 pedidos.add(pedido);
             }
@@ -111,6 +114,8 @@ public class PedidoDAO {
                 pedido.setFormaDePagamento(resultSet.getString("formaDePagamento"));
                 pedido.setFrete(resultSet.getString("frete"));
                 pedido.setValorTotal(resultSet.getDouble("valorTotal"));
+                pedido.setData(resultSet.getDate("data"));
+                pedido.setStatus(resultSet.getString("status"));
 
                 pedidos.add(pedido);
             }
@@ -122,8 +127,72 @@ public class PedidoDAO {
         return pedidos;
     }
 
-    public void atualizarStatusPedido(int pedidoId, String novoStatus) {
+    public void atualizarStatusPedido(int pedidoId, String novoStatus) throws SQLException {
+        String sql = "UPDATE Pedidos SET status = ? WHERE pedidoId = ?";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, novoStatus);
+            preparedStatement.setInt(2, pedidoId);
+            int affectedRows = preparedStatement.executeUpdate();
+            System.out.println("Linhas afetadas: " + affectedRows);
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar o status do pedido: " + e.getMessage());
+            throw e;
+        }
     }
+
+    public Pedido buscarPedidoPorId(int pedidoId) throws SQLException {
+        Pedido pedido = null;
+        String sql = "SELECT * FROM PEDIDOS WHERE PEDIDOID = ?";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, pedidoId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                pedido = new Pedido();
+                pedido.setPedidoId(resultSet.getInt("PEDIDOID"));
+                pedido.setClienteId(resultSet.getInt("CLIENTEID"));
+                pedido.setEnderecoId(resultSet.getInt("ENDERECOID"));
+                pedido.setFormaDePagamento(resultSet.getString("FORMADEPAGAMENTO"));
+                pedido.setFrete(resultSet.getString("FRETE"));
+                pedido.setValorTotal(resultSet.getDouble("VALORTOTAL"));
+                pedido.setStatus(resultSet.getString("STATUS"));
+                pedido.setData(resultSet.getDate("DATA"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao buscar pedido por ID: " + e.getMessage());
+            throw e;
+        }
+        return pedido;
+    }
+
+    public List<ItemCarrinho> buscarItensPedidoPorPedidoId(int pedidoId) throws SQLException {
+        List<ItemCarrinho> itens = new ArrayList<>();
+        String sql = "SELECT * FROM ITENSPEDIDO WHERE PEDIDOID = ?";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, pedidoId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ItemCarrinho item = new ItemCarrinho();
+                item.setLivroId(resultSet.getInt("PRODUTOID"));
+                item.setLivroNome(resultSet.getString("NOMEPRODUTO"));
+                item.setLivroPreco(resultSet.getDouble("PRECOUNITARIO"));
+                item.setQuantidade(resultSet.getInt("QUANTIDADE"));
+                itens.add(item);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao buscar itens do pedido: " + e.getMessage());
+            throw e;
+        }
+        return itens;
+    }
+
 }
 
 

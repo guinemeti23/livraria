@@ -251,4 +251,35 @@ public class ClienteDAO {
         return enderecos;
     }
 
+    public static List<Endereco> listarEnderecoEntrega(int enderecoId) {
+        List<Endereco> enderecos = new ArrayList<>();
+
+        String SQL = "SELECT * FROM ENDERECOS WHERE ENDERECOID = ?";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+
+            preparedStatement.setInt(1, enderecoId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Endereco endereco = new Endereco();
+
+                    endereco.setLogradouro(resultSet.getString("LOGRADOURO"));
+                    endereco.setNumero(resultSet.getString("NUMERO"));
+                    endereco.setComplemento(resultSet.getString("COMPLEMENTO"));
+                    endereco.setBairro(resultSet.getString("BAIRRO"));
+                    endereco.setLocalidade(resultSet.getString("CIDADE"));
+                    endereco.setUf(resultSet.getString("UF"));
+                    endereco.setCep(resultSet.getString("CEP"));
+                    enderecos.add(endereco);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return enderecos;
+    }
+
+
 }

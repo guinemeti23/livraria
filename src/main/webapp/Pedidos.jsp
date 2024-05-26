@@ -23,7 +23,7 @@
                    <p>Forma de Pagamento: <%= pedido.getFormaDePagamento() %></p>
                    <p>Frete: <%= pedido.getFrete() %></p>
 
-                   <a href="detalhesPedido.jsp?pedidoId=<%= pedido.getPedidoId() %>">Ver Detalhes</a>
+                   <a href="DetalhesPedido?pedidoId=<%= pedido.getPedidoId() %>">Detalhes</a>
                </div>
     <%     }
        } else { %>

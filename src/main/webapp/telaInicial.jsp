@@ -31,9 +31,10 @@
 
         <% } else { %>
             <p><%= ((Cliente) session.getAttribute("cliente")).getEmail() %></p>
-            <a href="alternarCliente.jsp?id=<%= ((Cliente) session.getAttribute("cliente")).getId() %>&nome=<%= ((Cliente) session.getAttribute("cliente")).getNomeCompleto() %>&cpf=<%= ((Cliente) session.getAttribute("cliente")).getCpf() %>&email=<%= ((Cliente) session.getAttribute("cliente")).getEmail() %>&senha=<%= ((Cliente) session.getAttribute("cliente")).getSenha() %>&dataNascimento=<%= ((Cliente) session.getAttribute("cliente")).getDataNascimento() %>&genero=<%= ((Cliente) session.getAttribute("cliente")).getGenero() %>">Editar</a>
-            <a href="cadasdroEndereco.jsp">Adicionar Endereço</a>
-            <a href="LogoutServlet">Deslogar</a>
+            <a href="alternarCliente.jsp?id=<%= ((Cliente) session.getAttribute("cliente")).getId() %>&nome=<%= ((Cliente) session.getAttribute("cliente")).getNomeCompleto() %>&cpf=<%= ((Cliente) session.getAttribute("cliente")).getCpf() %>&email=<%= ((Cliente) session.getAttribute("cliente")).getEmail() %>&senha=<%= ((Cliente) session.getAttribute("cliente")).getSenha() %>&dataNascimento=<%= ((Cliente) session.getAttribute("cliente")).getDataNascimento() %>&genero=<%= ((Cliente) session.getAttribute("cliente")).getGenero() %>">Editar</a>/
+            <a href="cadasdroEndereco.jsp">Adicionar Endereço</a>/
+            <a href="LogoutServlet">Deslogar</a>/
+            <a href="ListarPedidos">meus pedidos</a>
         <% } %>
         <div class="cart-icon">
             <a href="ListarEnderecoServlet">
