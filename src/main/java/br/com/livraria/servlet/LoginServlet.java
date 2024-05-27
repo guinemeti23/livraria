@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -27,23 +28,22 @@ public class LoginServlet extends HttpServlet {
         Usuario user = new Usuario(email, senha);
 
         boolean isValidUser = new UserDAO().verifyCredentials(user);
-        boolean isADM =  new UserDAO().isAdmin(user);
+        boolean isADM = new UserDAO().isAdmin(user);
 
         if (isValidUser) {
-            req.getSession().setAttribute("loggedUser", email);
-            if (isADM){
-                req.getSession().setAttribute("isAdmin", isADM);
-                System.out.println("vc é administrador "+ isADM);
-                resp.sendRedirect("inicioADM.html");
-            }else{
-                req.setAttribute("message", "Login successful!");
-                resp.sendRedirect("inicio.jsp");
-            }
+            System.out.println("Usuário " + email + " é admin: " + isADM);
 
-        } else {
-            req.setAttribute("message", "Invalid credentials!");
+            HttpSession session = req.getSession();
+            session.setAttribute("loggedUser", email);
+            if (isADM) {
+                session.setAttribute("isAdmin", true);
+            } else {
+                session.removeAttribute("isAdmin");
+            }
+            resp.sendRedirect("inicio.jsp");
+
+        }else{
             resp.sendRedirect("index.html?error=invalid");
         }
-
     }
 }

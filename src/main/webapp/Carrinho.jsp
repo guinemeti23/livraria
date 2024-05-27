@@ -52,47 +52,10 @@
                                     <label><input type="radio" name="frete" value="50.00" onchange="atualizarFrete(this.value)"> Premium - R$ 50,00</label>
                                 </div>
             </div>
-
+            <button id="checkout">Finalizar Compra</button>
         </aside>
     </div>
-    <div class="addresses">
 
-        <% if(session.getAttribute("cliente") == null) { %>
-
-            <form id="addressForm" action="loginCliente.jsp" method="POST">
-                                    <% List<Endereco> enderecos = (List<Endereco>) request.getAttribute("enderecos");
-                                    if (enderecos != null && !enderecos.isEmpty()) {
-                                        for (Endereco endereco : enderecos) { %>
-                                    <div class="address-option">
-                                        <input type="radio" id="endereco<%= endereco.getEnderecoId() %>" name="enderecoId" value="<%= endereco.getEnderecoId() %>" required>
-                                        <label for="endereco<%= endereco.getEnderecoId() %>">
-                                            CEP: <%= endereco.getCep() %>, Rua: <%= endereco.getLogradouro() %>, Número: <%= endereco.getNumero() %>
-                                        </label>
-                                    </div>
-                                    <% }
-                                    } %>
-                                    <button type="submit" id="checkout">Finalizar Compra</button>
-                                </form>
-
-        <% } else { %>
-            <form id="addressForm" action="pagamento.jsp" method="POST">
-                        <% List<Endereco> enderecos = (List<Endereco>) request.getAttribute("enderecos");
-                        if (enderecos != null && !enderecos.isEmpty()) {
-                            for (Endereco endereco : enderecos) { %>
-                        <div class="address-option">
-                            <input type="radio" id="endereco<%= endereco.getEnderecoId() %>" name="enderecoId" value="<%= endereco.getEnderecoId() %>" required>
-                            <label for="endereco<%= endereco.getEnderecoId() %>">
-                                CEP: <%= endereco.getCep() %>, Rua: <%= endereco.getLogradouro() %>, Número: <%= endereco.getNumero() %>
-                            </label>
-                        </div>
-                        <% }
-                        } %>
-                        <button type="submit" id="checkout">Finalizar Compra</button>
-                    </form>
-        <% } %>
-
-
-    </div>
 </main>
 
 <script>
@@ -150,12 +113,12 @@
           cartBody.appendChild(row);
         });
 
-        const shipping = "Gratuito";
+
         const totalAmount = subtotal;
 
         summary.innerHTML = `
           <div><span>Sub-total</span><span>R$ ${subtotal.toFixed(2)}</span></div>
-          <div><span>Frete</span><span>${shipping}</span></div>
+
         `;
         total.textContent = `Total: R$ ${totalAmount.toFixed(2)}`;
       }
@@ -190,7 +153,7 @@ window.removerItem = function (id) {
       fetchCart();
     });
     document.getElementById("checkout").addEventListener("click", function() {
-    window.location.href = "pagamento.jsp"; // Redireciona para a página de pagamento
+    window.location.href = ""; // Redireciona para a página de pagamento
 });
 
 window.selecionarEndereco = function(endereco) {
@@ -217,14 +180,20 @@ window.atualizarFrete = function(valorFrete) {
     const total = subtotal + valorFreteNumber;
     document.getElementById('total').textContent = `Total: R$ ${total.toFixed(2)}`;
 };
-document.getElementById('addressForm').onsubmit = function(event) {
-    const selectedAddress = document.querySelector('input[name="enderecoId"]:checked');
-    if (!selectedAddress) {
-        event.preventDefault();  // Impede o envio do formulário se nenhum endereço estiver selecionado
-        alert("Por favor, selecione um endereço para a entrega.");
-    }
-};
-
+document.getElementById("checkout").addEventListener("click", function() {
+    fetch('/VerificarLoginServlet')
+    .then(response => response.json())
+    .then(data => {
+        if (data.isLoggedIn) {
+            window.location.href = "/ListarEnderecoServlet";
+        } else {
+            window.location.href = "loginCliente.jsp";
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao verificar o status de login:', error);
+    });
+});
 
 </script>
 </body>

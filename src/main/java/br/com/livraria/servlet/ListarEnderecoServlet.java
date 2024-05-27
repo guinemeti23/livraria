@@ -23,12 +23,12 @@ public class ListarEnderecoServlet extends HttpServlet {
 
         if (cliente == null) {
             // Se não está logado, redirecione diretamente para o carrinho
-            resp.sendRedirect("Carrinho.jsp");
+            resp.sendRedirect("selecionarEndereco.jsp");
         } else {
             // Se está logado, busque os endereços e encaminhe para o carrinho com a lista de endereços
             List<Endereco> enderecos = new ClienteDAO().listarEndereco(cliente.getId());
             req.setAttribute("enderecos", enderecos);
-            RequestDispatcher view = req.getRequestDispatcher("Carrinho.jsp");
+            RequestDispatcher view = req.getRequestDispatcher("selecionarEndereco.jsp");
             view.forward(req, resp);
         }
     }

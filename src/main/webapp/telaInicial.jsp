@@ -37,7 +37,7 @@
             <a href="ListarPedidos">meus pedidos</a>
         <% } %>
         <div class="cart-icon">
-            <a href="ListarEnderecoServlet">
+            <a href="Carrinho.jsp">
                 <i class="fas fa-shopping-cart"></i>
             </a>
         </div>

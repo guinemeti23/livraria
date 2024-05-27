@@ -24,6 +24,14 @@
     </style>
 </head>
 <body>
+<div>
+            <% if (session != null && session.getAttribute("loggedUser") != null) { %>
+                <p>Usuário logado: <%= session.getAttribute("loggedUser") %></p>
+                <a href="/LogoutUsuarioServlet">Logout</a>
+            <% } else { %>
+                <p>Usuário não está logado</p>
+            <% } %>
+        </div>
     <h1>Lista de Pedidos</h1>
     <table>
         <thead>
