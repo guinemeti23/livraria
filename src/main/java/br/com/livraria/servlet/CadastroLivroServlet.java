@@ -31,68 +31,63 @@ public class CadastroLivroServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Map<String, Object> parameters = uploadImages(req);
 
-            Map<String, String> parameters = uploadImage(req);
+            String nome = (String) parameters.get("nome");
+            double preco = Double.parseDouble((String) parameters.get("valor"));
+            int quantidade = Integer.parseInt((String) parameters.get("quantidade"));
+            double avaliacao = Double.parseDouble((String) parameters.get("avaliacao"));
+            String descricao = (String) parameters.get("descricao");
+            List<String> imagens = (List<String>) parameters.get("imagens");
 
-            String nome = parameters.get("nome");
-            System.out.println("Valor do parâmetro 'nome': " + nome);
-
-            double preco = Double.parseDouble(parameters.get("valor"));
-            System.out.println("Valor do parâmetro ' preco': " + preco);
-
-            int quantidade = Integer.parseInt(parameters.get("quantidade"));
-            System.out.println("Valor do parâmetro 'qtd': " + quantidade);
-
-            double avaliacao = Double.parseDouble(parameters.get("avaliacao"));
-            String descricao = parameters.get("descricao");
-
-            String imagemPrincipal = parameters.get("imagemPrincipal");
-
-            String imagem2 = parameters.get("imagem2");
-
-            String imagem3 = parameters.get("imagem3");
-            String imagem4 = parameters.get("imagem4");
-            String imagem5 = parameters.get("imagem5");
-
-
-            Livro livro = new Livro(nome, quantidade, preco, descricao, avaliacao, imagemPrincipal, imagem2, imagem3, imagem4, imagem5);
-
+            Livro livro = new Livro(nome, quantidade, preco, descricao, avaliacao, imagens);
             LivroDAO livroDAO = new LivroDAO();
             livroDAO.cadastrarLivro(livro);
 
             resp.sendRedirect(req.getContextPath() + "/ListarProdutoServlet");
         } catch (Exception ex) {
             ex.printStackTrace();
-
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Ocorreu um erro durante o processamento da requisição.");
         }
     }
 
+    private Map<String, Object> uploadImages(HttpServletRequest request) throws ServletException, IOException {
+        Map<String, Object> parameters = new HashMap<>();
+        List<String> imageList = new ArrayList<>();
 
-
-
-    private Map< String, String> uploadImage(HttpServletRequest httpServletRequest) {
-
-        HashMap<String, String> parameters = new HashMap<>();
-
-        if (isMultipartContent(httpServletRequest)){
+        if (ServletFileUpload.isMultipartContent(request)) {
             try {
-                DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-                List<FileItem> fileItems = new ServletFileUpload(diskFileItemFactory).parseRequest(httpServletRequest);
+                DiskFileItemFactory factory = new DiskFileItemFactory();
+                ServletFileUpload upload = new ServletFileUpload(factory);
+                List<FileItem> items = upload.parseRequest(request);
 
-                for (FileItem item: fileItems){
-                    checkFieldType(item, parameters);
+                for (FileItem item : items) {
+                    if (item.isFormField()) {
+                        parameters.put(item.getFieldName(), item.getString());
+                    } else {
+                        if (item.getFieldName().equals("imagens")) {
+                            String fileName = processUploadedFile(item);
+                            imageList.add(fileName);
+                        }
+                    }
                 }
-
-            }catch (Exception e){
-                parameters.put("image", "img/default.jpg");
+                parameters.put("imagens", imageList);
+            } catch (Exception e) {
+                e.printStackTrace();
+                parameters.put("error", "Erro no upload de arquivo");
             }
-
-            return  parameters;
         }
 
         return parameters;
+    }
 
+    private String processUploadedFile(FileItem item) throws Exception {
+        Long currentTime = new Date().getTime();
+        String fileName = currentTime.toString() + "-" + item.getName().replace(" ", "");
+        String filePath = getServletContext().getRealPath("img") + File.separator + fileName;
+        File file = new File(filePath);
+        item.write(file);
+        return fileName;
     }
 
     private void checkFieldType(FileItem fileItem, Map<String, String> requestParameters) throws Exception {
@@ -109,15 +104,5 @@ public class CadastroLivroServlet extends HttpServlet {
     }
 
 
-    private String processUploadedFile(FileItem fileItem) throws Exception {
-        Long currentTime = new Date().getTime();
-
-        String fileName = currentTime.toString().concat("-").concat(fileItem.getName().replace(" ",""));
-        String filePath = this.getServletContext().getRealPath("img").concat(File.separator).concat(fileName);
-
-        fileItem.write(new File(filePath));
-
-        return fileName;
-    }
 }
 

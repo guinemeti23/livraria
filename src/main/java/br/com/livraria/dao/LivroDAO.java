@@ -16,7 +16,7 @@ import java.util.List;
 public class LivroDAO {
 
     public void cadastrarLivro(Livro livro) {
-        String SQL = "INSERT INTO livros(nome, qtd, descricao, avaliacao, preco, IMAGEM_PRINCIPAL, IMAGEM2, IMAGEM3, IMAGEM4, IMAGEM5) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String SQL = "INSERT INTO livros(nome, qtd, descricao, avaliacao, preco) VALUES(?,?,?,?,?)";
 
         try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
              PreparedStatement preparedStatement = connection.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -26,33 +26,39 @@ public class LivroDAO {
             preparedStatement.setString(3, livro.getDescricao());
             preparedStatement.setDouble(4, livro.getAvaliacao());
             preparedStatement.setDouble(5, livro.getPreco());
-            preparedStatement.setString(6, livro.getImagemPrincipal());
-            preparedStatement.setString(7, livro.getImagem2());
-            preparedStatement.setString(8, livro.getImagem3());
-            preparedStatement.setString(9, livro.getImagem4());
-            preparedStatement.setString(10, livro.getImagem5());
             preparedStatement.executeUpdate();
 
-            int idLivro;
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    idLivro = generatedKeys.getInt(1);
+                    int idLivro = generatedKeys.getInt(1);
+                    insertImages(idLivro, livro.getImagens(), connection);
                 } else {
                     throw new SQLException("Falha ao obter o ID do livro recém-inserido.");
                 }
             }
-
-
             System.out.println("Cadastro realizado com sucesso.");
-
         } catch (SQLException e) {
             System.out.println("Erro no cadastro do livro: " + e.getMessage());
         }
     }
 
+    private void insertImages(int livroId, List<String> imagens, Connection connection) throws SQLException {
+        String SQL = "INSERT INTO livro_imagens(livro_id, imagem) VALUES(?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+            for (String url : imagens) {
+                preparedStatement.setInt(1, livroId);
+                preparedStatement.setString(2, url);
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+        }
+    }
 
 
-    public List<Livro> listarProdutos() {
+
+
+
+    /*public List<Livro> listarProdutos() {
         String SQL = "SELECT * FROM livros";
 
         try {
@@ -88,7 +94,7 @@ public class LivroDAO {
             System.out.println("Falha na conexão com o banco de dados: " + e.getMessage());
             return Collections.emptyList();
         }
-    }
+    }*/
 
 
 }

@@ -23,7 +23,8 @@
         <button type="button" class="btn-cancelar">Cancelar</button>
 
     </form>
-        <a href="cadastroCliente.html">Cadastre-se</a>
+        <a href="cadastroCliente.html?redirectUrl=${fn:escapeXml(param.redirectUrl)}">Cadastre-se</a>
+
 
     <div id="alert" style="display: none;"></div>
 </div>

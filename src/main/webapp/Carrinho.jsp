@@ -187,13 +187,19 @@ document.getElementById("checkout").addEventListener("click", function() {
         if (data.isLoggedIn) {
             window.location.href = "/ListarEnderecoServlet";
         } else {
-            window.location.href = "loginCliente.jsp";
+            loginWithRedirect();
         }
     })
     .catch(error => {
         console.error('Erro ao verificar o status de login:', error);
     });
 });
+function loginWithRedirect() {
+    var currentUrl = window.location.href;  // Captura a URL atual
+    var loginUrl = 'loginCliente.jsp?redirectUrl=' + encodeURIComponent(currentUrl);  // Codifica a URL atual e a anexa como parâmetro
+    window.location.href = loginUrl;  // Redireciona para a tela de login com a URL atual como parâmetro
+}
+
 
 </script>
 </body>

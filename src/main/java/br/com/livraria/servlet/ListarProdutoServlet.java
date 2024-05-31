@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/ListarProdutoServlet")
+/*@WebServlet("/ListarProdutoServlet")
 public class ListarProdutoServlet extends HttpServlet {
 
     @Override
@@ -30,4 +30,4 @@ public class ListarProdutoServlet extends HttpServlet {
 
         }
     }
-}
+}*/

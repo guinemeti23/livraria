@@ -1,71 +1,39 @@
 document.addEventListener('DOMContentLoaded', function() {
     const imagensInput = document.getElementById('imagens');
-    const previewContainer = document.getElementById('imagens-preview');
-    const removerImagemSelect = document.getElementById('remover-imagem');
-    const removerImagemBtn = document.getElementById('remover-imagem-btn');
-    const imagemPrincipalSelect = document.getElementById('imagem-principal');
-    const imagensMap = new Map();
+    const previewContainer = document.getElementById('preview-container');
 
+    // Lida com a mudança no input de arquivos
     imagensInput.addEventListener('change', function() {
-        for (const file of this.files) {
-            if (imagensMap.size >= 5) {
-                alert('Você já selecionou o máximo de imagens permitido (5).');
-                break;
-            }
-
-            if (!imagensMap.has(file.name)) {
-                imagensMap.set(file.name, file);
-                adicionarImagemPreview(file);
-            }
+        // Limpa o contêiner de pré-visualizações a cada nova seleção de arquivos
+        while (previewContainer.firstChild) {
+            previewContainer.removeChild(previewContainer.firstChild);
         }
-    });
 
-    function adicionarImagemPreview(file) {
-        const reader = new FileReader();
-        reader.onload = function() {
-            const image = new Image();
-            image.src = reader.result;
-            image.style.maxWidth = '100px';
-            image.style.maxHeight = '100px';
-            image.alt = file.name;
-            previewContainer.appendChild(image);
+        // Processa cada arquivo selecionado, limitado a 5 para evitar excesso de carregamento
+        Array.from(this.files).slice(0, 5).forEach(file => {
+            if (file.type.startsWith('image/')) {  // Verifica se o arquivo é uma imagem
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Cria a tag de imagem para a pré-visualização
+                    const imgElement = document.createElement('img');
+                    imgElement.src = e.target.result;
+                    imgElement.style.width = '100px';  // Define largura da pré-visualização
+                    imgElement.style.height = '100px'; // Define altura da pré-visualização
+                    imgElement.style.marginRight = '5px'; // Espaçamento entre as imagens
+                    previewContainer.appendChild(imgElement);
 
-            const option = document.createElement('option');
-            option.text = file.name;
-            option.value = file.name;
-            removerImagemSelect.appendChild(option);
-
-            const principalOption = document.createElement('option');
-            principalOption.text = file.name;
-            principalOption.value = file.name;
-            imagemPrincipalSelect.appendChild(principalOption);
-        }
-        reader.readAsDataURL(file);
-    }
-
-    removerImagemBtn.addEventListener('click', function() {
-        const selectedOption = removerImagemSelect.options[removerImagemSelect.selectedIndex];
-        if (selectedOption) {
-            const fileName = selectedOption.value;
-            imagensMap.delete(fileName);
-
-            const images = previewContainer.getElementsByTagName('img');
-            for (let i = 0; i < images.length; i++) {
-                if (images[i].alt === fileName) {
-                    images[i].remove();
-                    break;
-                }
+                    // Cria um botão para remover a pré-visualização da imagem
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = 'Remover';
+                    removeButton.onclick = function() {
+                        // Remove a imagem e o botão ao clicar
+                        previewContainer.removeChild(imgElement);
+                        previewContainer.removeChild(removeButton);
+                    };
+                    previewContainer.appendChild(removeButton); // Adiciona o botão ao contêiner
+                };
+                reader.readAsDataURL(file); // Lê o arquivo como URL de dados para pré-visualização
             }
-            selectedOption.remove();
-
-
-            const principalOptions = imagemPrincipalSelect.options;
-            for (let i = 0; i < principalOptions.length; i++) {
-                if (principalOptions[i].value === fileName) {
-                    principalOptions[i].remove();
-                    break;
-                }
-            }
-        }
+        });
     });
 });

@@ -20,6 +20,8 @@ import java.util.Date;
 public class CadastroClienteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String redirectUrl = req.getParameter("redirectUrl");
+        req.setAttribute("redirectUrl", redirectUrl);
         req.getRequestDispatcher("cadastroCliente.html").forward(req, resp);
     }
 
@@ -51,17 +53,21 @@ public class CadastroClienteServlet extends HttpServlet {
         }
 
         // Criação do objeto Cliente
-        Cliente cliente = new Cliente(nome,cpf,email,senha,dataNascimento,genero);
+        Cliente cliente = new Cliente(nome, cpf, email, senha, dataNascimento, genero);
 
         // Criação do objeto Endereco
-        Endereco endereco = new Endereco(cep, logradouro,  numero, complemento, bairro, cidade, uf);
+        Endereco endereco = new Endereco(cep, logradouro, numero, complemento, bairro, cidade, uf);
 
         // Chama o método para cadastrar o cliente e o endereço
         ClienteDAO clienteDAO = new ClienteDAO();
         clienteDAO.cadastrarCliente(cliente, confirmacaoSenha, endereco);
 
 
-        resp.sendRedirect(req.getContextPath() + "/loginCliente.jsp");
-    }
+        String redirectUrl = req.getParameter("redirectUrl");
+        if (redirectUrl == null || redirectUrl.trim().isEmpty()) {
+            redirectUrl = "/loginCliente.jsp";
+        }
 
+        resp.sendRedirect(redirectUrl);
+    }
 }

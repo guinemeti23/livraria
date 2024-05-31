@@ -1,5 +1,6 @@
 package br.com.livraria.model;
 
+import java.util.List;
 
 import java.util.List;
 
@@ -10,43 +11,30 @@ public class Livro {
     private double preco;
     private String descricao;
     private double avaliacao;
-    private String imagemPrincipal;
-    private String imagem2;
-    private String imagem3;
-    private String imagem4;
-    private String imagem5;
+    private List<String> imagens; // Lista para armazenar as imagens
 
-
-
-    public Livro(int id, String nome, int quantidade, double preco, String descricao, double avaliacao,
-                 String imagemPrincipal, String imagem2, String imagem3, String imagem4, String imagem5) {
+    // Construtor com ID
+    public Livro(int id, String nome, int quantidade, double preco, String descricao, double avaliacao, List<String> imagens) {
         this.id = id;
         this.nome = nome;
         this.quantidade = quantidade;
         this.preco = preco;
         this.descricao = descricao;
         this.avaliacao = avaliacao;
-        this.imagemPrincipal = imagemPrincipal;
-        this.imagem2 = imagem2;
-        this.imagem3 = imagem3;
-        this.imagem4 = imagem4;
-        this.imagem5 = imagem5;
+        this.imagens = imagens;
     }
 
-    public Livro( String nome, int quantidade, double preco, String descricao, double avaliacao,
-                 String imagemPrincipal, String imagem2, String imagem3, String imagem4, String imagem5) {
+    // Construtor sem ID
+    public Livro(String nome, int quantidade, double preco, String descricao, double avaliacao, List<String> imagens) {
         this.nome = nome;
         this.quantidade = quantidade;
         this.preco = preco;
         this.descricao = descricao;
         this.avaliacao = avaliacao;
-        this.imagemPrincipal = imagemPrincipal;
-        this.imagem2 = imagem2;
-        this.imagem3 = imagem3;
-        this.imagem4 = imagem4;
-        this.imagem5 = imagem5;
+        this.imagens = imagens;
     }
 
+    // Getters e setters
     public int getQuantidade() {
         return quantidade;
     }
@@ -71,7 +59,6 @@ public class Livro {
         this.avaliacao = avaliacao;
     }
 
-
     public int getId() {
         return id;
     }
@@ -88,8 +75,6 @@ public class Livro {
         this.nome = nome;
     }
 
-
-
     public double getPreco() {
         return preco;
     }
@@ -98,43 +83,11 @@ public class Livro {
         this.preco = preco;
     }
 
-    public String getImagemPrincipal() {
-        return imagemPrincipal;
+    public List<String> getImagens() {
+        return imagens;
     }
 
-    public void setImagemPrincipal(String imagemPrincipal) {
-        this.imagemPrincipal = imagemPrincipal;
-    }
-
-    public String getImagem2() {
-        return imagem2;
-    }
-
-    public void setImagem2(String imagem2) {
-        this.imagem2 = imagem2;
-    }
-
-    public String getImagem3() {
-        return imagem3;
-    }
-
-    public void setImagem3(String imagem3) {
-        this.imagem3 = imagem3;
-    }
-
-    public String getImagem4() {
-        return imagem4;
-    }
-
-    public void setImagem4(String imagem4) {
-        this.imagem4 = imagem4;
-    }
-
-    public String getImagem5() {
-        return imagem5;
-    }
-
-    public void setImagem5(String imagem5) {
-        this.imagem5 = imagem5;
+    public void setImagens(List<String> imagens) {
+        this.imagens = imagens;
     }
 }
