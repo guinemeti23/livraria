@@ -47,160 +47,87 @@
                     <!-- Total da compra será inserido aqui pelo JavaScript -->
                 </footer>
                 <div class="shipping-options">
-                                    <label><input type="radio" name="frete" value="15.00" onchange="atualizarFrete(this.value)"> Normal - R$ 15,00</label>
-                                    <label><input type="radio" name="frete" value="30.00" onchange="atualizarFrete(this.value)"> Expresso - R$ 30,00</label>
-                                    <label><input type="radio" name="frete" value="50.00" onchange="atualizarFrete(this.value)"> Premium - R$ 50,00</label>
-                                </div>
+                    <label><input type="radio" name="frete" value="15.00" data-label="Normal - R$ 15,00" onchange="atualizarFrete(this.value, this.getAttribute('data-label'))"> Normal - R$ 15,00</label>
+                    <label><input type="radio" name="frete" value="30.00" data-label="Expresso - R$ 30,00" onchange="atualizarFrete(this.value, this.getAttribute('data-label'))"> Expresso - R$ 30,00</label>
+                    <label><input type="radio" name="frete" value="50.00" data-label="Premium - R$ 50,00" onchange="atualizarFrete(this.value, this.getAttribute('data-label'))"> Premium - R$ 50,00</label>
+                </div>
+
             </div>
             <button id="checkout">Finalizar Compra</button>
         </aside>
     </div>
-
 </main>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const cartBody = document.getElementById("cart-body");
-      const summary = document.getElementById("summary");
-      const total = document.getElementById("total");
+document.addEventListener("DOMContentLoaded", function () {
+    const cartBody = document.getElementById("cart-body");
+    const summary = document.getElementById("summary");
+    const total = document.getElementById("total");
 
-      // Função para buscar o carrinho do servidor
-      function fetchCart() {
+    // Carregar dados do carrinho do servidor
+    function fetchCart() {
         fetch('/carregarItensCarrinho')
-          .then(response => {
-            if (!response.ok) {
-                throw new Error('Falha ao buscar dados');
-            }
-            return response.json();
-          })
-          .then(data => {
-            updateCart(data);  // Atualiza o carrinho com os itens recebidos
-          })
-          .catch(error => console.error('Erro ao buscar dados do carrinho:', error));
-      }
+            .then(response => response.json())
+            .then(data => updateCart(data))
+            .catch(error => console.error('Erro ao buscar dados do carrinho:', error));
+    }
 
-      // Função para atualizar o carrinho com os itens
-      function updateCart(cartItems) {
+    // Atualizar o carrinho com os itens recebidos
+    function updateCart(cartItems) {
         cartBody.innerHTML = "";
         let subtotal = 0;
 
-        cartItems.forEach((item, index) => {
-          const totalPrice = item.livroPreco * item.quantidade;
-          subtotal += totalPrice;
+        cartItems.forEach(item => {
+            const totalPrice = item.livroPreco * item.quantidade;
+            subtotal += totalPrice;
 
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>
-              <div class="product">
-                <div class="info">
-                  <div class="name">${item.livroNome}</div>
-                </div>
-              </div>
-            </td>
-            <td>R$ ${item.livroPreco.toFixed(2)}</td>
-            <td>
-              <div class="qty">
-                <button onclick="alterarQuantidade(${item.livroId}, -1)"><i class="bx bx-minus"></i></button>
-                <span>${item.quantidade}</span>
-                <button onclick="alterarQuantidade(${item.livroId}, 1)"><i class="bx bx-plus"></i></button>
-              </div>
-            </td>
-            <td>R$ ${totalPrice.toFixed(2)}</td>
-            <td>
-              <button onclick="removerItem(${item.livroId})" class="remove"><i class="bx bx-x"></i></button>
-            </td>
-          `;
-          cartBody.appendChild(row);
+            const row = `<tr>
+                <td><div class="product"><div class="info"><div class="name">${item.livroNome}</div></div></div></td>
+                <td>R$ ${item.livroPreco.toFixed(2)}</td>
+                <td>
+                    <div class="qty">
+                        <button onclick="alterarQuantidade(${item.livroId}, -1)"><i class="bx bx-minus"></i></button>
+                        <span>${item.quantidade}</span>
+                        <button onclick="alterarQuantidade(${item.livroId}, 1)"><i class="bx bx-plus"></i></button>
+                    </div>
+                </td>
+                <td>R$ ${totalPrice.toFixed(2)}</td>
+                <td><button onclick="removerItem(${item.livroId})" class="remove"><i class="bx bx-x"></i></button></td>
+            </tr>`;
+            cartBody.insertAdjacentHTML('beforeend', row);
         });
 
+        summary.innerHTML = `<div><span>Sub-total</span><span>R$ ${subtotal.toFixed(2)}</span></div>`;
+        total.textContent = `Total: R$ ${subtotal.toFixed(2)}`;
+    }
 
-        const totalAmount = subtotal;
+    // Atualizar frete e recalcular o total
+    window.atualizarFrete = function(valorFrete, labelFrete) {
+        const subtotalText = summary.querySelector('div span:last-child').textContent.replace('R$', '').trim();
+        const subtotal = parseFloat(subtotalText);
+        const valorFreteNumber = parseFloat(valorFrete);
+        const totalComFrete = subtotal + valorFreteNumber;
+        total.textContent = `Total: R$ ${totalComFrete.toFixed(2)}`;
+        // Armazenar o rótulo do frete para uso posterior
+        document.getElementById("checkout").setAttribute("data-frete-label", labelFrete);
+    };
 
-        summary.innerHTML = `
-          <div><span>Sub-total</span><span>R$ ${subtotal.toFixed(2)}</span></div>
-
-        `;
-        total.textContent = `Total: R$ ${totalAmount.toFixed(2)}`;
-      }
-
-      // Funções para modificar a quantidade do item no carrinho
-window.alterarQuantidade = function (id, delta) {
-    fetch(`/updateCart?id=${id}&action=check`, { method: 'POST' })
-      .then(response => response.json())
-      .then(data => {
-        if (data.newQuantity <= 0) {
-            removerItem(id);
-        } else {
-            let action = delta === 1 ? "increase" : "decrease";
-            fetch(`/updateCart?id=${id}&action=${action}`, { method: 'POST' })
-            .then(() => {
-                fetchCart();  // Recarrega o carrinho após a alteração
-            });
-        }
-      });
-};
-
-
-// Função para remover um item do carrinho
-window.removerItem = function (id) {
-    fetch(`/updateCart?id=${id}&action=remove`, { method: 'POST' })
-      .then(() => {
-        fetchCart();
-      });
-};
-
-      // Carregar o carrinho ao carregar a página
-      fetchCart();
-    });
     document.getElementById("checkout").addEventListener("click", function() {
-    window.location.href = ""; // Redireciona para a página de pagamento
-});
-
-window.selecionarEndereco = function(endereco) {
-    alert("Endereço selecionado: " + endereco);
-};
-
-window.atualizarFrete = function(valorFrete) {
-    const subtotalElement = document.getElementById('summary').querySelector('div span:last-child');
-    if (!subtotalElement) {
-        console.error('Elemento do subtotal não encontrado');
-        return;
-    }
-    const subtotalText = subtotalElement.textContent.replace('R$', '').trim();
-    const subtotal = parseFloat(subtotalText);
-    if (isNaN(subtotal)) {
-        console.error('Subtotal inválido:', subtotalText);
-        return;
-    }
-    const valorFreteNumber = parseFloat(valorFrete);
-    if (isNaN(valorFreteNumber)) {
-        console.error('Custo de frete inválido:', valorFrete);
-        return;
-    }
-    const total = subtotal + valorFreteNumber;
-    document.getElementById('total').textContent = `Total: R$ ${total.toFixed(2)}`;
-};
-document.getElementById("checkout").addEventListener("click", function() {
-    fetch('/VerificarLoginServlet')
-    .then(response => response.json())
-    .then(data => {
-        if (data.isLoggedIn) {
-            window.location.href = "/ListarEnderecoServlet";
-        } else {
-            loginWithRedirect();
-        }
-    })
-    .catch(error => {
-        console.error('Erro ao verificar o status de login:', error);
+        const freteSelecionado = this.getAttribute("data-frete-label");  // Pega o rótulo completo do frete
+        const valorTotalText = total.textContent.replace('Total: R$', '').trim();
+        fetch('/FinalizarCompra', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `frete=${encodeURIComponent(freteSelecionado)}&valorTotal=${encodeURIComponent(valorTotalText)}`
+        }).then(response => {
+            if (response.ok) window.location.href = response.url;
+            else throw new Error('Falha ao processar pedido');
+        }).catch(error => console.error('Erro ao finalizar a compra:', error));
     });
+
+
+    fetchCart();  // Carregar o carrinho ao carregar a página
 });
-function loginWithRedirect() {
-    var currentUrl = window.location.href;  // Captura a URL atual
-    var loginUrl = 'loginCliente.jsp?redirectUrl=' + encodeURIComponent(currentUrl);  // Codifica a URL atual e a anexa como parâmetro
-    window.location.href = loginUrl;  // Redireciona para a tela de login com a URL atual como parâmetro
-}
-
-
 </script>
 </body>
 </html>

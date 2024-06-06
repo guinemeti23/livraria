@@ -37,10 +37,8 @@
                     <td><%= livro.getNome() %></td>
                     <td><%= livro.getQuantidade() %></td>
                     <td>R$ <%= livro.getPreco() %></td>
-
                     <td>
-                        <a href="visualizarProduto.jsp?id=<%= livro.getId() %>&nome=<%= livro.getNome() %>&preco=<%= livro.getPreco() %>&descricao=<%= livro.getDescricao() %>&avaliacao=<%= livro.getAvaliacao() %>&imagemPrincipal=<%= livro.getImagemPrincipal() %>&imagem2=<%= livro.getImagem2() %>&imagem3=<%= livro.getImagem3() %>&imagem4=<%= livro.getImagem4() %>&imagem5=<%= livro.getImagem5() %>">Visualizar</a>
-
+                        <a href="visualizarProduto.jsp?id=<%= livro.getId() %>&nome=<%= livro.getNome() %>&preco=<%= livro.getPreco() %>&descricao=<%= livro.getDescricao() %>&avaliacao=<%= livro.getAvaliacao() %>&imagens=<%= String.join(",", livro.getImagens()) %>">Visualizar</a>
                         <form action="/EditarProdutoServlet" method="GET">
                             <input type="hidden" name="productId" value="<%= livro.getId() %>">
                             <button type="submit">Editar</button>
@@ -48,6 +46,7 @@
                     </td>
                 </tr>
             <% } %>
+
         </tbody>
     </table>
 </body>

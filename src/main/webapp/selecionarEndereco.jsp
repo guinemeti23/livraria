@@ -37,7 +37,7 @@
     </style>
 </head>
 <body>
-    <form id="addressForm" action="pagamento.jsp" method="POST">
+    <form id="addressForm" action="ProcessarEndereco" method="POST">
         <% List<Endereco> enderecos = (List<Endereco>) request.getAttribute("enderecos");
         if (enderecos != null && !enderecos.isEmpty()) {
             for (Endereco endereco : enderecos) { %>

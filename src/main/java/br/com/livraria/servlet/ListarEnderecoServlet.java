@@ -21,12 +21,15 @@ public class ListarEnderecoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Cliente cliente = (Cliente) req.getSession().getAttribute("cliente");
 
+
         if (cliente == null) {
             // Se não está logado, redirecione diretamente para o carrinho
             resp.sendRedirect("selecionarEndereco.jsp");
         } else {
             // Se está logado, busque os endereços e encaminhe para o carrinho com a lista de endereços
-            List<Endereco> enderecos = new ClienteDAO().listarEndereco(cliente.getId());
+            int clienteId = cliente.getId();
+            System.out.println(clienteId);
+            List<Endereco> enderecos = new ClienteDAO().listarEndereco(clienteId);
             req.setAttribute("enderecos", enderecos);
             RequestDispatcher view = req.getRequestDispatcher("selecionarEndereco.jsp");
             view.forward(req, resp);

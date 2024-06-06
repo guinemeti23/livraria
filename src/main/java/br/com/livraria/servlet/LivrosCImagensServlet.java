@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/*@WebServlet("/LivrosCImagensServlet")
+@WebServlet("/LivrosCImagensServlet")
 public class LivrosCImagensServlet extends HttpServlet{
 
     @Override
@@ -20,16 +20,15 @@ public class LivrosCImagensServlet extends HttpServlet{
         List<Livro> livros = new LivroDAO().listarProdutos();
 
         if (livros.isEmpty()) {
-
             System.out.println("A lista de livros está vazia.");
+            req.setAttribute("mensagem", "Nenhum livro encontrado.");
         } else {
-
             req.setAttribute("livrosImagens", livros);
-            RequestDispatcher view = req.getRequestDispatcher("telaInicial.jsp");
-            view.forward(req,resp);
-
         }
-    }
 
-}*/
+        RequestDispatcher view = req.getRequestDispatcher("telaInicial.jsp");
+        view.forward(req, resp);
+    }
+}
+
 

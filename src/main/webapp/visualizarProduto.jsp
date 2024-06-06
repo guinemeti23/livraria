@@ -1,6 +1,7 @@
 <%@ page import="br.com.livraria.model.Livro" %>
 <%@ page import="br.com.livraria.model.Cliente" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Arrays" %>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -68,11 +69,15 @@
 
 <div class="carrossel-container">
     <div class="carrossel">
-        <img src="Img/<%= request.getParameter("imagemPrincipal") %>" alt="Imagem 1">
-        <img src="Img/<%= request.getParameter("imagem2") %>" alt="Imagem 2">
-        <img src="Img/<%= request.getParameter("imagem3") %>" alt="Imagem 3">
-        <img src="Img/<%= request.getParameter("imagem4") %>" alt="Imagem 4">
-        <img src="Img/<%= request.getParameter("imagem5") %>" alt="Imagem 5">
+        <%
+        List<String> imagens = Arrays.asList(
+            request.getParameter("imagens").split(","));
+        for (String imagem : imagens) {
+        %>
+            <img src="Img/<%= imagem %>" alt="Imagem do Livro">
+        <%
+        }
+        %>
     </div>
     <button class="prev">&#10094;</button>
     <button class="next">&#10095;</button>
@@ -80,8 +85,8 @@
 
 <div class="detalhes-produto">
     <p><strong>Preço:</strong> <strong class="valor">R$ <%= request.getParameter("preco") %></strong></p>
-    <p><strong>Avaliação:</strong><%= request.getParameter("avaliacao") %></strong></p>
-    <p><strong>Descrição detalhada:</strong> <%= request.getParameter("descricao") %></p>
+    <p><strong>Avaliação:</strong> <%= request.getParameter("avaliacao") %></p>
+    <p><strong>Descrição:</strong> <%= request.getParameter("descricao") %></p>
     <button class="comprar-btn" id="comprar-btn" data-livro-id="<%= request.getParameter("id") %>" data-livro-nome="<%= request.getParameter("nome") %>" data-livro-preco="<%= request.getParameter("preco") %>">Comprar</button>
 </div>
 

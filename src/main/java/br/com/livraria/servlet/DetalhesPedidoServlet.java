@@ -35,13 +35,13 @@ public class DetalhesPedidoServlet extends HttpServlet {
             List<ItemCarrinho> itensPedido = pedidoDAO.buscarItensPedidoPorPedidoId(pedidoId);
 
             // Buscando endereço de entrega do pedido
-            List<Endereco> enderecoEntrega = ClienteDAO.listarEnderecoEntrega(pedido.getEnderecoId());
-            Endereco endereco = enderecoEntrega.isEmpty() ? null : enderecoEntrega.get(0);
+            Endereco enderecoEntrega = ClienteDAO.listarEnderecoEntrega(pedido.getEnderecoId());
+
 
             // Configurando atributos para serem acessados na JSP
             request.setAttribute("pedido", pedido);
             request.setAttribute("itensPedido", itensPedido);
-            request.setAttribute("endereco", endereco);
+            request.setAttribute("endereco", enderecoEntrega);
 
             // Encaminhando para a página de detalhes do pedido
             request.getRequestDispatcher("/detalhesPedido.jsp").forward(request, response);

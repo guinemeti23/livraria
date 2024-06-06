@@ -51,16 +51,15 @@
 
 <div class="livros-container">
     <% for (Livro livro : (List<Livro>)request.getAttribute("livrosImagens")) { %>
-        <!-- Livro -->
         <div class="livro">
             <h3><%= livro.getNome() %></h3>
-            <img src="Img/<%= livro.getImagemPrincipal() %>" alt="<%= livro.getNome() %>">
+            <img src="Img/<%= livro.getImagens().isEmpty() ? "default.jpg" : livro.getImagens().get(0) %>" alt="<%= livro.getNome() %>">
             <p>Valor: R$ <%= livro.getPreco() %></p>
-            <a href="visualizarProduto.jsp?id=<%= livro.getId() %>&nome=<%= livro.getNome() %>&preco=<%= livro.getPreco() %>&descricao=<%= livro.getDescricao() %>&avaliacao=<%= livro.getAvaliacao() %>&imagemPrincipal=<%= livro.getImagemPrincipal() %>&imagem2=<%= livro.getImagem2() %>&imagem3=<%= livro.getImagem3() %>&imagem4=<%= livro.getImagem4() %>&imagem5=<%= livro.getImagem5() %>">Detalhes</a>
-
+            <a href="visualizarProduto.jsp?id=<%= livro.getId() %>&nome=<%= livro.getNome() %>&preco=<%= livro.getPreco() %>&descricao=<%= livro.getDescricao() %>&avaliacao=<%= livro.getAvaliacao() %>&imagens=<%= String.join(",", livro.getImagens()) %>">Detalhes</a>
             <button class="comprar-btn" data-livro-id="<%= livro.getId() %>" data-livro-nome="<%= livro.getNome() %>" data-livro-preco="<%= livro.getPreco() %>">Comprar</button>
         </div>
     <% } %>
+
 
 </div>
 

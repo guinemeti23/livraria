@@ -113,16 +113,18 @@
     <div class="page-title">Selecione uma opção de pagamento</div>
     <div class="content">
         <section>
-            <form id="payment-form" action="resumoPedido.jsp" method="POST">
-                            <input type="hidden" name="enderecoId" value="<%= request.getParameter("enderecoId") %>" />
-                            <input type="hidden" name="frete" id="inputFrete" /> <!-- Campo para armazenar o valor de frete -->
-                            <div class="payment-options">
-                                <label><input type="radio" name="payment" value="pix">PIX</label>
-                                <label><input type="radio" name="payment" value="boleto">Boleto Bancário</label>
-                                <label><input type="radio" name="payment" value="cartao">Cartão de Crédito/Débito</label>
-                            </div>
-                            <button type="submit" id="confirm-payment">Confirmar Pagamento</button>
-                        </form>
+            <form id="payment-form" action="ProcessarPagamento" method="POST">
+                <input type="hidden" name="enderecoId" value="<%= request.getParameter("enderecoId") %>" />
+                <input type="hidden" name="frete" id="inputFrete" /> <!-- Campo para armazenar o valor de frete -->
+                <input type="hidden" name="formaPagamento" id="formaPagamento" /> <!-- Campo para armazenar a forma de pagamento -->
+                <div class="payment-options">
+                    <label><input type="radio" name="payment" value="pix">PIX</label>
+                    <label><input type="radio" name="payment" value="boleto">Boleto</label>
+                    <label><input type="radio" name="payment" value="cartao">Cartão de Crédito/Débito</label>
+                </div>
+                <button type="submit" id="confirm-payment">Confirmar Pagamento</button>
+            </form>
+
             <div class="card-fields" style="display:none;">
                 <label for="card-number">Número do Cartão:</label>
                 <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
@@ -146,45 +148,37 @@ document.addEventListener("DOMContentLoaded", function () {
     const paymentOptions = document.querySelector('.payment-options');
     const cardFields = document.querySelector('.card-fields');
     const qrCodeDiv = document.getElementById('qr-code');
-    const confirmPaymentBtn = document.getElementById('confirm-payment');
-    const hiddenInput = document.getElementById('formaPagamento');
+    const hiddenInputFormaPagamento = document.getElementById('formaPagamento');
 
-    // Assegura que o código QR e os campos do cartão são inicialmente ocultos
-    qrCodeDiv.style.display = 'none';
-    cardFields.style.display = 'none';
+    function displayQRCode(paymentType) {
+        qrCodeDiv.innerHTML = ''; // Limpa o QR code anterior
+        let data = paymentType === 'pix' ? 'PIX123456789' : 'BOLETO987654321'; // Dados de exemplo
+        qrCodeDiv.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?data=${data}&size=200x200" alt="QR Code para ${paymentType}">`;
+    }
 
     paymentOptions.addEventListener('change', function(event) {
         if (event.target.type === 'radio') {
             const selectedPayment = event.target.value;
-            hiddenInput.value = selectedPayment;
-            confirmPaymentBtn.style.display = 'block';
+            hiddenInputFormaPagamento.value = selectedPayment; // Atualiza o campo oculto com o valor selecionado
+
+            cardFields.style.display = 'none';
+            qrCodeDiv.style.display = 'none';
 
             switch (selectedPayment) {
                 case 'cartao':
                     cardFields.style.display = 'block';
-                    qrCodeDiv.style.display = 'none';
                     break;
                 case 'pix':
                 case 'boleto':
-                    cardFields.style.display = 'none';
                     qrCodeDiv.style.display = 'block';
                     displayQRCode(selectedPayment);
-                    break;
-                default:
-                    cardFields.style.display = 'none';
-                    qrCodeDiv.style.display = 'none';
                     break;
             }
         }
     });
-
-    function displayQRCode(paymentType) {
-        qrCodeDiv.innerHTML = ''; // Clear previous QR code
-        let data = paymentType === 'pix' ? 'PIX123456789' : 'BOLETO987654321'; // Example data
-        qrCodeDiv.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?data=${data}&size=200x200" alt="QR Code for ${paymentType}">`;
-    }
 });
 </script>
+
 
 
 

@@ -229,7 +229,7 @@ public class ClienteDAO {
         try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
              PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
 
-            preparedStatement.setString(1, "%" + idCliente + "%");
+            preparedStatement.setInt(1, idCliente);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Endereco endereco = new Endereco();
@@ -251,9 +251,7 @@ public class ClienteDAO {
         return enderecos;
     }
 
-    public static List<Endereco> listarEnderecoEntrega(int enderecoId) {
-        List<Endereco> enderecos = new ArrayList<>();
-
+    public static Endereco listarEnderecoEntrega(int enderecoId) {
         String SQL = "SELECT * FROM ENDERECOS WHERE ENDERECOID = ?";
 
         try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
@@ -261,9 +259,8 @@ public class ClienteDAO {
 
             preparedStatement.setInt(1, enderecoId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
+                if (resultSet.next()) {
                     Endereco endereco = new Endereco();
-
                     endereco.setLogradouro(resultSet.getString("LOGRADOURO"));
                     endereco.setNumero(resultSet.getString("NUMERO"));
                     endereco.setComplemento(resultSet.getString("COMPLEMENTO"));
@@ -271,14 +268,14 @@ public class ClienteDAO {
                     endereco.setLocalidade(resultSet.getString("CIDADE"));
                     endereco.setUf(resultSet.getString("UF"));
                     endereco.setCep(resultSet.getString("CEP"));
-                    enderecos.add(endereco);
+                    return endereco;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return enderecos;
+        return null; // Retorna null se não encontrar o endereço ou ocorrer erro
     }
 
 

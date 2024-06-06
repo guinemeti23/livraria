@@ -57,15 +57,13 @@ public class LivroDAO {
 
 
 
-
-    /*public List<Livro> listarProdutos() {
+    public List<Livro> listarProdutos() {
         String SQL = "SELECT * FROM livros";
+        String SQL_IMAGES = "SELECT imagem FROM livro_imagens WHERE livro_id = ?";
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-            System.out.println("Sucesso na conexão com o banco de dados");
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            ResultSet resultSet = preparedStatement.executeQuery();
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
             List<Livro> livros = new ArrayList<>();
 
@@ -76,25 +74,28 @@ public class LivroDAO {
                 String descricao = resultSet.getString("descricao");
                 double avaliacao = resultSet.getDouble("avaliacao");
                 double preco = resultSet.getDouble("preco");
-                String imagemPrincipal = resultSet.getString("imagem_principal");
-                String imagem2 = resultSet.getString("imagem2");
-                String imagem3 = resultSet.getString("imagem3");
-                String imagem4 = resultSet.getString("imagem4");
-                String imagem5 = resultSet.getString("imagem5");
 
-                Livro livro = new Livro(id, nome, qtd, preco, descricao, avaliacao,
-                        imagemPrincipal, imagem2, imagem3, imagem4, imagem5);
+                List<String> imagens = new ArrayList<>();
+                try (PreparedStatement psImages = connection.prepareStatement(SQL_IMAGES)) {
+                    psImages.setInt(1, id);
+                    try (ResultSet rsImages = psImages.executeQuery()) {
+                        while (rsImages.next()) {
+                            imagens.add(rsImages.getString("imagem"));
+                        }
+                    }
+                }
+
+                Livro livro = new Livro(id, nome, qtd, preco, descricao, avaliacao, imagens);
                 livros.add(livro);
             }
 
             System.out.println("Sucesso na consulta de livros");
-            connection.close();
             return livros;
         } catch (SQLException e) {
             System.out.println("Falha na conexão com o banco de dados: " + e.getMessage());
             return Collections.emptyList();
         }
-    }*/
+    }
 
 
 }

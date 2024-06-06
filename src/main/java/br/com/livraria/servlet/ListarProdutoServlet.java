@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/*@WebServlet("/ListarProdutoServlet")
+@WebServlet("/ListarProdutoServlet")
 public class ListarProdutoServlet extends HttpServlet {
 
     @Override
@@ -20,14 +20,13 @@ public class ListarProdutoServlet extends HttpServlet {
         List<Livro> livros = new LivroDAO().listarProdutos();
 
         if (livros.isEmpty()) {
-
             System.out.println("A lista de livros está vazia.");
+            req.setAttribute("mensagem", "Nenhum livro encontrado.");
         } else {
-
             req.setAttribute("livros", livros);
-            RequestDispatcher view = req.getRequestDispatcher("ListaProduto.jsp");
-            view.forward(req,resp);
-
         }
+
+        RequestDispatcher view = req.getRequestDispatcher("ListaProduto.jsp");
+        view.forward(req, resp);
     }
-}*/
+}
