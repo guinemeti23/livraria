@@ -37,6 +37,8 @@
     </style>
 </head>
 <body>
+
+    <a href="cadasdroEndereco.jsp"><button type="button">Cadastrar Novo Endereco</button></a>
     <form id="addressForm" action="ProcessarEndereco" method="POST">
         <% List<Endereco> enderecos = (List<Endereco>) request.getAttribute("enderecos");
         if (enderecos != null && !enderecos.isEmpty()) {

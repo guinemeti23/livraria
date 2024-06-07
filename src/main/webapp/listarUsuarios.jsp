@@ -62,6 +62,7 @@
             <% } %>
         </tbody>
     </table>
+    <a href="cadastro.html"><button type="button">Cadastrar Novo Usuário</button></a>
 </body>
 
 </html>

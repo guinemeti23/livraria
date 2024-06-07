@@ -1,5 +1,7 @@
 package br.com.livraria.servlet;
 
+import br.com.livraria.model.Cliente;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +23,13 @@ import java.io.IOException;
             session.setAttribute("freteSelecionado", freteSelecionado);
             session.setAttribute("valorTotal", valorTotal);
 
-            response.sendRedirect("/ListarEnderecoServlet");
+            Cliente cliente = (Cliente) request.getSession().getAttribute("cliente");
+            if (cliente == null) {
+                response.sendRedirect("loginCliente.jsp");
+            }else{
+                response.sendRedirect("/ListarEnderecoServlet");
+            }
+
         }
     }
 

@@ -30,6 +30,7 @@ public class LoginClienteServlet extends HttpServlet {
         String email = req.getParameter("email");
         String senha = req.getParameter("senha");
         String redirectUrl = req.getParameter("redirectUrl");
+        System.out.println("url : /" +redirectUrl+"/");
 
         Cliente cliente = new Cliente(email, senha);
 
@@ -40,7 +41,12 @@ public class LoginClienteServlet extends HttpServlet {
 
             req.getSession().setAttribute("cliente", listaCliente.get(0));
             req.setAttribute("message", "Login successful!");
-            resp.sendRedirect(redirectUrl != null ? URLDecoder.decode(redirectUrl, "UTF-8") : "/LivrosCImagensServlet");
+            if(redirectUrl == ""){
+                resp.sendRedirect("ListarEnderecoServlet");
+            }else{
+                resp.sendRedirect(redirectUrl != null ? URLDecoder.decode(redirectUrl, "UTF-8") : "/LivrosCImagensServlet");
+            }
+
         } else {
             req.setAttribute("message", "Invalid credentials!");
             resp.sendRedirect("loginCliente.jsp?error=invalid&redirectUrl=" + URLEncoder.encode(redirectUrl, "UTF-8"));

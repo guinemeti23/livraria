@@ -12,6 +12,15 @@
 </head>
 
 <body>
+<div>
+            <% if (session != null && session.getAttribute("loggedUser") != null) { %>
+                <p>Usuário logado: <%= session.getAttribute("loggedUser") %></p>
+                <a href="/LogoutUsuarioServlet">Logout</a>
+            <% } else { %>
+                <p>Usuário não está logado</p>
+            <% } %>
+             <a href="inicio.jsp">inicio</a>
+        </div>
     <h1>Listar Produtos</h1>
 
     <form action="/ListarProdutoServlet" method="GET">
@@ -49,6 +58,7 @@
 
         </tbody>
     </table>
+    <a href="cadastroProduto.html"><button type="button">Cadastrar Novo Produto</button></a>
 </body>
 
 </html>

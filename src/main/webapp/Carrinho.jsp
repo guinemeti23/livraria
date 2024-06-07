@@ -64,6 +64,32 @@ document.addEventListener("DOMContentLoaded", function () {
     const summary = document.getElementById("summary");
     const total = document.getElementById("total");
 
+  // Funções para modificar a quantidade do item no carrinho
+window.alterarQuantidade = function (id, delta) {
+    fetch(`/updateCart?id=${id}&action=check`, { method: 'POST' })
+      .then(response => response.json())
+      .then(data => {
+        if (data.newQuantity <= 0) {
+            removerItem(id);
+        } else {
+            let action = delta === 1 ? "increase" : "decrease";
+            fetch(`/updateCart?id=${id}&action=${action}`, { method: 'POST' })
+            .then(() => {
+                fetchCart();  // Recarrega o carrinho após a alteração
+            });
+        }
+      });
+};
+
+
+// Função para remover um item do carrinho
+window.removerItem = function (id) {
+    fetch(`/updateCart?id=${id}&action=remove`, { method: 'POST' })
+      .then(() => {
+        fetchCart();
+      });
+};
+
     // Carregar dados do carrinho do servidor
     function fetchCart() {
         fetch('/carregarItensCarrinho')

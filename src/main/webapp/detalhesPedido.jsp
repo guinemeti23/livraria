@@ -60,6 +60,6 @@
             <% } %>
         </tbody>
     </table>
-    <a href="ListarPedidosEstoque">Voltar à lista de pedidos</a>
+    <a href="ListarPedidos">Voltar à lista de pedidos</a>
 </body>
 </html>
